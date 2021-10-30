@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".IndividualCoinActivity" />
+        <activity android:name=".LogInActivity" />
+        <activity android:name=".SignUpActivity" />
     </application>
 
 </manifest>
