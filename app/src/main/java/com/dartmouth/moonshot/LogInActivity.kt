@@ -22,7 +22,7 @@ class LogInActivity: AppCompatActivity() {
         mFirebaseAuth = FirebaseAuth.getInstance()
 
         emailEditText = findViewById(R.id.edittext_email)
-        passwordEditText = findViewById(R.id.edittext_email)
+        passwordEditText = findViewById(R.id.edittext_password)
 
         signUpButton = findViewById(R.id.button_signup)
         signUpButton.setOnClickListener(){
@@ -45,7 +45,11 @@ class LogInActivity: AppCompatActivity() {
         val password = passwordEditText.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
-            // TODO
+            val myDialog = LogInDialog()
+            val bundle = Bundle()
+            bundle.putInt(LogInDialog.DIALOG_KEY, LogInDialog.NO_EMAIL_PASSWORD_INT)
+            myDialog.arguments = bundle
+            myDialog.show(supportFragmentManager, "Log In Failed")
         } else {
             mFirebaseAuth!!.signInWithEmailAndPassword(email, password).addOnCompleteListener(this){
                 if(it.isSuccessful){
@@ -54,8 +58,12 @@ class LogInActivity: AppCompatActivity() {
                     finish()
                 } else {
                     // Log in unsuccessful
-                    // TODO
                     Log.d("debug", "log in failed")
+                    val myDialog = LogInDialog()
+                    val bundle = Bundle()
+                    bundle.putInt(LogInDialog.DIALOG_KEY, LogInDialog.LOGIN_INT)
+                    myDialog.arguments = bundle
+                    myDialog.show(supportFragmentManager, "Log In Failed")
                 }
             }
         }

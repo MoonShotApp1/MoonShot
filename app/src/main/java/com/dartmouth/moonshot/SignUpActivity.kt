@@ -35,7 +35,11 @@ class SignUpActivity: AppCompatActivity() {
         val password = passwordEditText.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
-            // TODO
+            val myDialog = LogInDialog()
+            val bundle = Bundle()
+            bundle.putInt(LogInDialog.DIALOG_KEY, LogInDialog.NO_EMAIL_PASSWORD_INT)
+            myDialog.arguments = bundle
+            myDialog.show(supportFragmentManager, "Sign Up Failed")
         } else {
             mFirebaseAuth!!.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){
                 if(it.isSuccessful){
@@ -46,7 +50,11 @@ class SignUpActivity: AppCompatActivity() {
                     // Sign up failed
                     Log.d("debug", "sign up failed")
                     Log.d("debug", it.exception.toString())
-                    // TODO
+                    val myDialog = LogInDialog()
+                    val bundle = Bundle()
+                    bundle.putInt(LogInDialog.DIALOG_KEY, LogInDialog.SIGNUP_INT)
+                    myDialog.arguments = bundle
+                    myDialog.show(supportFragmentManager, "Sign Up Failed")
                 }
             }
         }
