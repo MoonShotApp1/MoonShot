@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class SignUpActivity: AppCompatActivity() {
-    private lateinit var logInButton: Button
     private lateinit var signUpButton: Button
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
@@ -22,7 +21,7 @@ class SignUpActivity: AppCompatActivity() {
         mFirebaseAuth = FirebaseAuth.getInstance()
 
         emailEditText = findViewById(R.id.edittext_email)
-        passwordEditText = findViewById(R.id.edittext_email)
+        passwordEditText = findViewById(R.id.edittext_password)
 
         signUpButton = findViewById(R.id.button_signup)
         signUpButton.setOnClickListener(){
