@@ -17,6 +17,8 @@ import com.dartmouth.moonshot.databinding.ActivityMainBinding
 import com.dartmouth.moonshot.ui.home.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private var mFirebaseAuth: FirebaseAuth? = null
     private var mFirebaseUser: FirebaseUser? = null
+    private var firestoreDB = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +53,8 @@ class MainActivity : AppCompatActivity() {
         // Get Firebaser user
         mFirebaseAuth = FirebaseAuth.getInstance()
         mFirebaseUser = mFirebaseAuth!!.getCurrentUser()
+
+        //firestoreDB.collection("users").document("user_info").update("name", "Patrick")
 
         if(mFirebaseUser == null){
             logIn()
