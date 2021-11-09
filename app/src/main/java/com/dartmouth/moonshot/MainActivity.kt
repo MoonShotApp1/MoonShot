@@ -13,6 +13,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 import com.dartmouth.moonshot.databinding.ActivityMainBinding
 import com.dartmouth.moonshot.ui.home.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -31,6 +33,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (! Python.isStarted()) {
+            Python.start(AndroidPlatform(this))
+        }
+
+        val py = Python.getInstance()
+        val module = py.getModule("plot")
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
