@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cryptosA"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="Cryptos:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/cryptosB"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:text="xxx"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+        </Space>
+
+        <TextView
+            android:id="@+id/exchangesA"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="Exchanges:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/exchangesB"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:text="xxx"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+        </Space>
+
+        <TextView
+            android:id="@+id/marketCapA"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Market Cap:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/marketCapB"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:text="xxx"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/liked"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Liked"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/all"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="All">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/eth"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="ETH">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/bnb"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="BNB">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/other1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Other1">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/other2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Other2">
+            </RadioButton>
+        </RadioGroup>
+    </LinearLayout>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:text="Name"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="price"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tfhp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="24h %"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/mrktCap"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Mrkt Cap"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
+</LinearLayout>
