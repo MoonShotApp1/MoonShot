@@ -3,14 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_coin_webpage.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_individual_coin.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1393110435663627" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3322116872801634" />
-        <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.302425733364899" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.11659082930455247" />
+        <entry key="app/src/main/res/layout/no_email_password_dialog.xml" value="0.129981884057971" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.36843341124456586" />
       </map>
     </option>

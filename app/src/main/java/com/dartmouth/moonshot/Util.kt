@@ -21,10 +21,14 @@ object Util {
             )
             != PackageManager.PERMISSION_GRANTED
             || ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(activity, Manifest.permission.INTERNET)
+            != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_NETWORK_STATE)
             != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                 activity,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE),
                 0
             )
         }

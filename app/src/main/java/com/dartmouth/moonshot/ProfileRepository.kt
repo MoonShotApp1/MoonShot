@@ -1,6 +1,7 @@
 package com.dartmouth.moonshot
 
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,24 +31,28 @@ class ProfileRepository {
     }
 
     fun getUser(): LiveData<User> {
-
-        if (liveData == null)
-            liveData = MutableLiveData()
-        databaseReference =
-            Firebase.database.getReference("Users").child(mFirebaseAuth!!.currentUser!!.uid)
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val userModel = snapshot.getValue(User::class.java)
-                    liveData!!.postValue(userModel)
+        try {
+            if (liveData == null)
+                liveData = MutableLiveData()
+            databaseReference =
+                Firebase.database.getReference("Users").child(mFirebaseAuth!!.currentUser!!.uid)
+            databaseReference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val userModel = snapshot.getValue(User::class.java)
+                        liveData!!.postValue(userModel)
+                    }
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
 
-        })
+            })
+
+        } catch (e: Exception){
+            Log.d("debug", "in e")
+        }
 
         return liveData!!
     }
