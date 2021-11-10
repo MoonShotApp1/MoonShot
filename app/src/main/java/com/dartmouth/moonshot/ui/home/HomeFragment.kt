@@ -40,6 +40,7 @@ class HomeFragment : Fragment() {
     private lateinit var buttonSignOut: Button
     private lateinit var buttonUpdateName: Button
     private lateinit var edittextName: EditText
+    private lateinit var edittextBio: EditText
     //private lateinit var textviewName: TextView
     //private lateinit var storageReference: StorageReference
     private lateinit var imageUri: Uri
@@ -47,6 +48,7 @@ class HomeFragment : Fragment() {
     private lateinit var tempImgUri: Uri
     private val tempImgFileName = "uttam_temp_img.jpg"
     lateinit var tempImgFile: File
+    var changeImage = 0
 
 
     private lateinit var profileViewModel: ProfileViewModel
@@ -83,6 +85,7 @@ class HomeFragment : Fragment() {
         tempImgUri = FileProvider.getUriForFile(requireContext(), "com.dartmouth.moonshot", tempImgFile)
 
         edittextName = root.findViewById(R.id.edittext_name)
+        edittextBio = root.findViewById(R.id.edittext_bio)
         //textviewName = root.findViewById(R.id.text_home)
 
         pImageView = binding.imgProfile
@@ -108,7 +111,9 @@ class HomeFragment : Fragment() {
         buttonUpdateName = root.findViewById(R.id.button_update_name)
         buttonUpdateName.setOnClickListener(){
             profileViewModel.updateName(edittextName.text.toString())
-            profileViewModel.updateImage(imageUri)
+            profileViewModel.updateBio(edittextBio.text.toString())
+            profileViewModel.updateImage(imageUri, changeImage)
+            //profileViewModel.updateSavedCoins(arrayListOf("4gfH2ie0EZg9WH2rOFBZvbHmLYf1", "T0s1ZTySZVXaE6Hr2vlIJRScrOp1"))
             //updateName()
         }
 
@@ -156,8 +161,9 @@ class HomeFragment : Fragment() {
     val gactivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){
             result: ActivityResult ->
+        changeImage = 1
         val bitmap = result.data?.data?.let { Util.getBitmap(requireContext(), it) }
-        Toast.makeText(this.activity, result.data?.data.toString(), Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this.activity, result.data?.data.toString(), Toast.LENGTH_SHORT).show()
         if(result.data?.data != null){
             pImageView.setImageBitmap(bitmap)
             //need to do data.data bc result.data is an intent
@@ -176,6 +182,7 @@ class HomeFragment : Fragment() {
     val activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){
             result: ActivityResult ->
+        changeImage = 1
         val bitmap = Util.getBitmap(requireContext(), tempImgUri)
         pImageView.setImageBitmap(bitmap)
         imageUri = tempImgUri

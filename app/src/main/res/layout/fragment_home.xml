@@ -26,11 +26,29 @@
         android:layout_gravity="center"
         android:src="@drawable/default_profile"/>
 
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Your Name"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edittext_name"
-        android:hint="Name"/>
+        android:text="@{userModel.name}"
+        android:hint="Enter your name here"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Your Bio"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext_bio"
+        android:text="@{userModel.bio}"
+        android:hint="Write your bio here"/>
 
     <!--<TextView
         android:id="@+id/text_home"

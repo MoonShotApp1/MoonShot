@@ -7,7 +7,7 @@ import androidx.databinding.BindingAdapter
 data class User(
     var name : String? = null,
     var bio : String? = null,
-    var savedCoins: ArrayList<String>? = null,
+    var savedCoins: String? = null,
     var image: String? = null
 ){
 

@@ -1,7 +1,6 @@
 package com.dartmouth.moonshot
 
 import android.net.Uri
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -9,7 +8,11 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
+import com.google.gson.reflect.TypeToken
+import com.google.gson.Gson
+
+
+
 
 class ProfileRepository {
 
@@ -62,6 +65,16 @@ class ProfileRepository {
 
     }
 
+    fun updateBio(bioText: String?) {
+
+
+        val databaseReference: DatabaseReference =
+            Firebase.database.getReference("Users").child(mFirebaseAuth!!.currentUser!!.uid)
+        val map = mapOf<String, Any>("bio" to bioText!!)
+        databaseReference.updateChildren(map)
+
+    }
+
     /*fun updateStatus(status: String) {
 
         val databaseReference =
@@ -72,19 +85,41 @@ class ProfileRepository {
 
     }*/
 
-    fun updateImage(imagePath: Uri) {
-        val databaseReference =
-            Firebase.database.getReference("Users").child(mFirebaseAuth!!.currentUser!!.uid)
+    fun updateImage(imagePath: Uri, changeImage: Int) {
+        if (changeImage == 1){
+            val databaseReference =
+                Firebase.database.getReference("Users").child(mFirebaseAuth!!.currentUser!!.uid)
 
-        val map = mapOf<String, Any>("image" to imagePath.toString())
+            val map = mapOf<String, Any>("image" to imagePath.toString())
+            databaseReference.updateChildren(map)
+
+            storageReference.putFile(imagePath).addOnSuccessListener {
+                //Toast.makeText(this.activity, "profile image uploaded", Toast.LENGTH_SHORT).show()
+                println("IMAGE UPLOADED")
+            }.addOnFailureListener{
+                //Toast.makeText(this.activity, "failed profile image upload", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    fun fromString(value: String?): ArrayList<String>? {
+        val listType = object : TypeToken<ArrayList<String>?>() {}.type
+        return Gson().fromJson(value, listType)
+    }
+
+    fun fromArrayList(list: ArrayList<String>?): String? {
+        val gson = Gson()
+        return gson.toJson(list)
+    }
+
+    fun updateSavedCoins(coinList: ArrayList<String>?) {
+        var listAsString = fromArrayList(coinList)
+
+        val databaseReference: DatabaseReference =
+            Firebase.database.getReference("Users").child(mFirebaseAuth!!.currentUser!!.uid)
+        val map = mapOf<String, Any>("savedCoins" to listAsString!!)
         databaseReference.updateChildren(map)
 
-        storageReference.putFile(imagePath).addOnSuccessListener {
-            //Toast.makeText(this.activity, "profile image uploaded", Toast.LENGTH_SHORT).show()
-            println("IMAGE UPLOADED")
-        }.addOnFailureListener{
-            //Toast.makeText(this.activity, "failed profile image upload", Toast.LENGTH_SHORT).show()
-        }
     }
 
 

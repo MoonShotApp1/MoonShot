@@ -20,7 +20,15 @@ class ProfileViewModel: ViewModel() {
         profileRepo.updateName(userName!!)
     }
 
-    fun updateImage(imagePath: Uri) {
-        profileRepo.updateImage(imagePath)
+    fun updateBio(bioText: String?) {
+        profileRepo.updateBio(bioText!!)
+    }
+
+    fun updateImage(imagePath: Uri, changeImg: Int) {
+        profileRepo.updateImage(imagePath, changeImg)
+    }
+
+    fun updateSavedCoins(coinList: ArrayList<String>) {
+        profileRepo.updateSavedCoins(coinList)
     }
 }
