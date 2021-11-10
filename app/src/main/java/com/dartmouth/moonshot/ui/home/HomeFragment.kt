@@ -70,47 +70,9 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        mFirebaseAuth = FirebaseAuth.getInstance()
-        //profileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        profileViewModel =
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-                .create(ProfileViewModel::class.java)
-
-        Util.checkPermissions(this.activity)
-        imageUri = Uri.parse("android.resource://com.dartmouth.moonshot/${R.drawable.default_profile}")
-
-        tempImgFile = File(activity?.getExternalFilesDir(null), tempImgFileName)
-        tempImgUri = FileProvider.getUriForFile(requireContext(), "com.dartmouth.moonshot", tempImgFile)
-
         edittextName = root.findViewById(R.id.edittext_name)
-        //textviewName = root.findViewById(R.id.text_home)
-
-        pImageView = binding.imgProfile
-        pImageView.setOnClickListener{
-            onAlertDialogue()
-        }
-
-        profileViewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->
-            binding.userModel = userModel
-
-            edittextName.setText(userModel.name.toString())
-
-        })
-
-
-
-
         buttonSignOut = root.findViewById(R.id.button_signout)
-        buttonSignOut.setOnClickListener(){
-                signOutUser()
-            }
-
         buttonUpdateName = root.findViewById(R.id.button_update_name)
-        buttonUpdateName.setOnClickListener(){
-            profileViewModel.updateName(edittextName.text.toString())
-            profileViewModel.updateImage(imageUri)
-            //updateName()
-        }
 
         return root
     }
@@ -130,6 +92,49 @@ class HomeFragment : Fragment() {
                 }
             }
         }*/
+
+        mFirebaseAuth = FirebaseAuth.getInstance()
+        Log.d("debug", "user = ${mFirebaseAuth!!.currentUser!!.uid}")
+        //profileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        profileViewModel =
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+                .create(ProfileViewModel::class.java)
+
+
+        Util.checkPermissions(this.activity)
+        imageUri = Uri.parse("android.resource://com.dartmouth.moonshot/${R.drawable.default_profile}")
+
+        tempImgFile = File(activity?.getExternalFilesDir(null), tempImgFileName)
+        tempImgUri = FileProvider.getUriForFile(requireContext(), "com.dartmouth.moonshot", tempImgFile)
+
+
+        //textviewName = root.findViewById(R.id.text_home)
+
+        pImageView = binding.imgProfile
+        pImageView.setOnClickListener{
+            onAlertDialogue()
+        }
+
+
+        profileViewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->
+            binding.userModel = userModel
+            Log.d("debug", "userModel name = ${userModel.name.toString()}")
+
+            edittextName.setText(userModel.name.toString())
+
+        })
+
+
+        buttonSignOut.setOnClickListener(){
+            signOutUser()
+        }
+
+
+        buttonUpdateName.setOnClickListener(){
+            profileViewModel.updateName(edittextName.text.toString())
+            profileViewModel.updateImage(imageUri)
+            //updateName()
+        }
     }
 
     // I learned from here https://developer.android.com/guide/topics/ui/dialogs and didn't

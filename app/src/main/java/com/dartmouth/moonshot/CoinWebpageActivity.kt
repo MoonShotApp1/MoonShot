@@ -9,12 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.app.ProgressDialog
 import android.webkit.WebSettings
 
-
-
-
-
-
-
 class CoinWebpageActivity: AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var closeButton: Button

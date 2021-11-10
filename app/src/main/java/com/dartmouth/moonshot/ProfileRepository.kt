@@ -23,6 +23,7 @@ class ProfileRepository {
     object StaticFunction {
         private var instance: ProfileRepository? = null
         fun getInstance(): ProfileRepository {
+            Log.d("debug", "in repo getInstance")
             if (instance == null)
                 instance = ProfileRepository()
 
@@ -31,6 +32,7 @@ class ProfileRepository {
     }
 
     fun getUser(): LiveData<User> {
+        mFirebaseAuth = FirebaseAuth.getInstance()
         try {
             if (liveData == null)
                 liveData = MutableLiveData()
@@ -53,7 +55,7 @@ class ProfileRepository {
         } catch (e: Exception){
             Log.d("debug", "in e")
         }
-
+        Log.d("debug", "in repo livedata = ${liveData}")
         return liveData!!
     }
 

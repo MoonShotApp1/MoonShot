@@ -38,8 +38,26 @@ class GalleryFragment : Fragment() {
         val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, coinList)
         listView.adapter = adapter
 
-        listView.setOnItemClickListener() { _, _, _, _ ->
+        listView.setOnItemClickListener() { _, _, position, _ ->
+            val coin = coinList[position]
+
             val intent = Intent(requireActivity(), IndividualCoinActivity::class.java)
+            val bundle = Bundle()
+            val address = ""
+            val blockchainType = ""
+            val currentPrice = ""
+            val dailyVolume = ""
+            val holders = ""
+            val name = ""
+            val symbol = ""
+            bundle.putString(IndividualCoinActivity.ADDRESS_KEY, address)
+            bundle.putString(IndividualCoinActivity.BLOCKCHAIN_TYPE_KEY, blockchainType)
+            bundle.putString(IndividualCoinActivity.CURRENT_PRICE_KEY, currentPrice)
+            bundle.putString(IndividualCoinActivity.DAILY_VOLUME_KEY, dailyVolume)
+            bundle.putString(IndividualCoinActivity.HOLDERS_KEY, holders)
+            bundle.putString(IndividualCoinActivity.NAME_KEY, name)
+            bundle.putString(IndividualCoinActivity.SYMBOL_KEY, symbol)
+            intent.putExtra(IndividualCoinActivity.BUNDLE_KEY, bundle)
             requireActivity().startActivity(intent)
         }
 

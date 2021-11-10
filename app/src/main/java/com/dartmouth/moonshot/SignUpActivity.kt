@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 
 class SignUpActivity: AppCompatActivity() {
@@ -12,6 +13,8 @@ class SignUpActivity: AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private var mFirebaseAuth: FirebaseAuth? = null
+
+    private lateinit var profileViewModel: ProfileViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +47,11 @@ class SignUpActivity: AppCompatActivity() {
                 if(it.isSuccessful){
                     // Sign up successful
                     Log.d("debug", "sign up successful")
+                    mFirebaseAuth = FirebaseAuth.getInstance()
+                    profileViewModel =
+                        ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)
+                            .create(ProfileViewModel::class.java)
+                    profileViewModel.updateName("")
                     finish()
                 } else {
                     // Sign up failed
