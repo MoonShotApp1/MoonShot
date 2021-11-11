@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.squareup.picasso.Picasso
 
 class IndividualCoinActivity: AppCompatActivity() {
     private lateinit var closeButton: Button
@@ -28,6 +30,7 @@ class IndividualCoinActivity: AppCompatActivity() {
     private var holders: String? = null
     private var name: String? = null
     private var symbol: String? = null
+    private var imageLarge: String? = null
 
     companion object coinSPKeys {
         val BUNDLE_KEY = "bundle"
@@ -75,15 +78,19 @@ class IndividualCoinActivity: AppCompatActivity() {
             showMoreInfo()
         }
 
+        imageLarge = intent.getStringExtra(IMAGE_LARGE_KEY)
+
         val nameTextView: TextView = findViewById(R.id.coinName)
         val symbolTextView: TextView = findViewById(R.id.coinSymbol)
         val bcTypeTextView: TextView = findViewById(R.id.blockChainTypeAB)
         val currPriceTextView: TextView = findViewById(R.id.price)
+        val imageLargeImageView: ImageView = findViewById(R.id.coinPic)
 
         nameTextView.text = intent.getStringExtra(NAME_KEY)
         symbolTextView.text = intent.getStringExtra(SYMBOL_KEY)
         bcTypeTextView.text = intent.getStringExtra(BLOCKCHAIN_TYPE_KEY)
         currPriceTextView.text = intent.getStringExtra(CURRENT_PRICE_KEY)
+        Picasso.get().load(imageLarge).into(imageLargeImageView)
     }
 
 
