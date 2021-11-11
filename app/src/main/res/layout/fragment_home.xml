@@ -19,7 +19,8 @@
         android:layout_height="200dp"
         app:srcCompat="@drawable/default_profile"/>-->
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <!--<de.hdodenhof.circleimageview.CircleImageView-->
+    <ImageView
         android:id="@+id/imgProfile"
         imageUrl="@{userModel.image}"
         android:layout_width="200dp"

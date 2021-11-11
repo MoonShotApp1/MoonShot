@@ -198,8 +198,11 @@ class SlideshowFragment : Fragment() {
             indCoinIntent.putExtra(IndividualCoinActivity.NAME_KEY, itemSelected.name)
             indCoinIntent.putExtra(IndividualCoinActivity.SYMBOL_KEY, itemSelected.symbol)
             indCoinIntent.putExtra(IndividualCoinActivity.BLOCKCHAIN_TYPE_KEY, itemSelected.platforms)
-            indCoinIntent.putExtra(IndividualCoinActivity.CURRENT_PRICE_KEY, itemSelected.currentPrice)
+            indCoinIntent.putExtra(IndividualCoinActivity.CURRENT_PRICE_KEY, itemSelected.currentPrice.toString())
             indCoinIntent.putExtra(IndividualCoinActivity.ADDRESS_KEY, itemSelected.address)
+            indCoinIntent.putExtra(IndividualCoinActivity.IMAGE_LARGE_KEY, itemSelected.image_large)
+            //Toast.makeText(this.activity, itemSelected.name, Toast.LENGTH_LONG).show()
+            //Toast.makeText(this.activity, itemSelected.image_large.toString(), Toast.LENGTH_LONG).show()
 
             startActivity(indCoinIntent)
         }

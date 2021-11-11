@@ -30,7 +30,7 @@ class CoinListAdapter(val context: Activity, var coinList: ArrayList<Coin>): Bas
         textViewName.text = coinList.get(position).name
         textViewSymb.text = coinList.get(position).symbol
         textViewBCType.text = coinList.get(position).platforms
-        textViewCurrPrice.text = coinList.get(position).currentPrice
+        textViewCurrPrice.text = coinList.get(position).currentPrice.toString()
 
         return view
     }
