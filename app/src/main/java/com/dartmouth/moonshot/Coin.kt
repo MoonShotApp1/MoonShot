@@ -11,5 +11,5 @@ data class Coin(
     var totalTransactions: String? = null,
     var price24Low: String? = null,
     var price24High: String? = null,
-    var blockchainType: String? = null
+    var platforms: String? = null
 )

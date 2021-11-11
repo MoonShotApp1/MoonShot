@@ -19,10 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.dartmouth.moonshot.LogInActivity
-import com.dartmouth.moonshot.ProfileViewModel
-import com.dartmouth.moonshot.R
-import com.dartmouth.moonshot.Util
+import com.dartmouth.moonshot.*
 import com.dartmouth.moonshot.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -52,7 +49,7 @@ class HomeFragment : Fragment() {
 
 
     private lateinit var profileViewModel: ProfileViewModel
-    //private lateinit var profileBinding: FragmentHomeBinding
+    //private lateinit var coinViewModel: CoinViewModel
 
     private var mFirebaseAuth: FirebaseAuth? = null
     private var firestoreDB = Firebase.firestore
@@ -78,6 +75,10 @@ class HomeFragment : Fragment() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
                 .create(ProfileViewModel::class.java)
 
+        /*coinViewModel =
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+                .create(CoinViewModel::class.java)*/
+
         Util.checkPermissions(this.activity)
         imageUri = Uri.parse("android.resource://com.dartmouth.moonshot/${R.drawable.default_profile}")
 
@@ -99,6 +100,10 @@ class HomeFragment : Fragment() {
             edittextName.setText(userModel.name.toString())
 
         })
+
+        /*coinViewModel.getAllCoins().observe(viewLifecycleOwner, Observer {
+            println(it.toString())
+        })*/
 
 
 

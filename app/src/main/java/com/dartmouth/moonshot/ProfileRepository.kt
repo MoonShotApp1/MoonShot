@@ -34,24 +34,28 @@ class ProfileRepository {
 
     fun getUser(): LiveData<User> {
 
-        if (liveData == null)
-            liveData = MutableLiveData()
-        databaseReference =
-            Firebase.database.getReference("Users").child(mFirebaseAuth!!.currentUser!!.uid)
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val userModel = snapshot.getValue(User::class.java)
-                    liveData!!.postValue(userModel)
+        try {
+            if (liveData == null)
+                liveData = MutableLiveData()
+            databaseReference =
+                Firebase.database.getReference("Users").child(mFirebaseAuth!!.currentUser!!.uid)
+            databaseReference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val userModel = snapshot.getValue(User::class.java)
+                        liveData!!.postValue(userModel)
+                    }
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
 
-        })
+            })
 
+        }catch (exception: Exception){
+            println("signout")
+        }
         return liveData!!
     }
 
