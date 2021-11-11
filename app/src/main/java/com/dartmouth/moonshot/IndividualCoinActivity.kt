@@ -4,11 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class IndividualCoinActivity: AppCompatActivity() {
     private lateinit var closeButton: Button
     private lateinit var moreInfoButton: Button
+    private lateinit var saveButton: Button
+
+    private lateinit var profileViewModel: ProfileViewModel
+
+    private var mFirebaseAuth: FirebaseAuth? = null
 
     private var address: String? = null
     private var blockchainType: String? = null
@@ -27,6 +38,7 @@ class IndividualCoinActivity: AppCompatActivity() {
         val HOLDERS_KEY = "holders"
         val NAME_KEY = "name"
         val SYMBOL_KEY = "symbol"
+        val IMAGE_LARGE_KEY = "image-large"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,11 +50,42 @@ class IndividualCoinActivity: AppCompatActivity() {
             finish()
         }
 
+        address = intent.getStringExtra(ADDRESS_KEY)
+
+        mFirebaseAuth = FirebaseAuth.getInstance()
+        //profileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        profileViewModel =
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+                .create(ProfileViewModel::class.java)
+
+        var savedCoinsList = fromString(profileViewModel.getUser().value?.savedCoins)
+        //Toast.makeText(this, savedCoinsList.toString(), Toast.LENGTH_LONG).show()
+
+        saveButton = findViewById(R.id.button_save)
+        saveButton.setOnClickListener(){
+            if (savedCoinsList != null) {
+                address?.let { it1 -> savedCoinsList.add(it1) }
+                profileViewModel.updateSavedCoins(savedCoinsList)
+            }
+            finish()
+        }
+
         moreInfoButton = findViewById(R.id.web)
         moreInfoButton.setOnClickListener(){
             showMoreInfo()
         }
+
+        val nameTextView: TextView = findViewById(R.id.coinName)
+        val symbolTextView: TextView = findViewById(R.id.coinSymbol)
+        val bcTypeTextView: TextView = findViewById(R.id.blockChainTypeAB)
+        val currPriceTextView: TextView = findViewById(R.id.price)
+
+        nameTextView.text = intent.getStringExtra(NAME_KEY)
+        symbolTextView.text = intent.getStringExtra(SYMBOL_KEY)
+        bcTypeTextView.text = intent.getStringExtra(BLOCKCHAIN_TYPE_KEY)
+        currPriceTextView.text = intent.getStringExtra(CURRENT_PRICE_KEY)
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -64,5 +107,10 @@ class IndividualCoinActivity: AppCompatActivity() {
         //intent.putExtra(CoinWebpageActivity.BLOCKCHAIN_TYPE_KEY, blockchainType)
         //intent.putExtra(CoinWebpageActivity.COIN_ADDRESS_KEY, "0xb45f65561bdbef60e6f716a755394efee977c4ac")
         this.startActivity(intent)
+    }
+
+    fun fromString(value: String?): ArrayList<String>? {
+        val listType = object : TypeToken<ArrayList<String>?>() {}.type
+        return Gson().fromJson(value, listType)
     }
 }

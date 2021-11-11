@@ -118,7 +118,8 @@ class HomeFragment : Fragment() {
             profileViewModel.updateName(edittextName.text.toString())
             profileViewModel.updateBio(edittextBio.text.toString())
             profileViewModel.updateImage(imageUri, changeImage)
-            //profileViewModel.updateSavedCoins(arrayListOf("4gfH2ie0EZg9WH2rOFBZvbHmLYf1", "T0s1ZTySZVXaE6Hr2vlIJRScrOp1"))
+            //imageUri = Uri.parse("")
+            //profileViewModel.updateSavedCoins(arrayListOf("",""))
             //updateName()
         }
 
