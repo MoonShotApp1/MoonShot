@@ -18,6 +18,7 @@ class CoinWebpageActivity: AppCompatActivity() {
     companion object{
         val COIN_ADDRESS_KEY = "CoinAddress"
         val BLOCKCHAIN_TYPE_KEY = "blockchainType"
+        val COIN_NAME_KEY = "CoinName"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,10 +55,16 @@ class CoinWebpageActivity: AppCompatActivity() {
 
 
         // Get url
-        val coinAddress = intent.getStringExtra(COIN_ADDRESS_KEY)
-        //val blockChainType = intent.getStringExtra(BLOCKCHAIN_TYPE_KEY)
+        val coinName = intent.getStringExtra(COIN_NAME_KEY)
+        //coinUrl = "https://www.coingecko.com/en/coins/" + coinName
 
-        coinUrl = "https://www.dextools.io/app/ether/pair-explorer/" + coinAddress
+        val coinAddress = intent.getStringExtra(COIN_ADDRESS_KEY)
+        val blockChainType = intent.getStringExtra(BLOCKCHAIN_TYPE_KEY)
+        if(blockChainType == "binance-smart-chain"){
+            coinUrl = "https://www.dextools.io/app/bsc/pair-explorer/" + coinAddress
+        } else if (blockChainType == "ethereum") {
+            coinUrl = "https://www.dextools.io/app/ether/pair-explorer/" + coinAddress
+        }
         Log.d("debug", "coinUrl = $coinUrl")
         webView.loadUrl(coinUrl!!)
     }

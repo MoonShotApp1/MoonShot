@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class IndividualCoinActivity: AppCompatActivity() {
     private lateinit var closeButton: Button
-    private lateinit var moreInfoButton: Button
+    private lateinit var chartButton: Button
 
     private var address: String? = null
     private var blockchainType: String? = null
@@ -38,8 +38,8 @@ class IndividualCoinActivity: AppCompatActivity() {
             finish()
         }
 
-        moreInfoButton = findViewById(R.id.web)
-        moreInfoButton.setOnClickListener(){
+        chartButton = findViewById(R.id.soc)
+        chartButton.setOnClickListener(){
             showMoreInfo()
         }
     }
@@ -60,9 +60,10 @@ class IndividualCoinActivity: AppCompatActivity() {
     fun showMoreInfo(){
         val intent = Intent(this, CoinWebpageActivity::class.java)
         // Hardcode
-        intent.putExtra(CoinWebpageActivity.COIN_ADDRESS_KEY, address)
+        //intent.putExtra(CoinWebpageActivity.COIN_ADDRESS_KEY, address)
         //intent.putExtra(CoinWebpageActivity.BLOCKCHAIN_TYPE_KEY, blockchainType)
         //intent.putExtra(CoinWebpageActivity.COIN_ADDRESS_KEY, "0xb45f65561bdbef60e6f716a755394efee977c4ac")
+        intent.putExtra(CoinWebpageActivity.COIN_NAME_KEY, name)
         this.startActivity(intent)
     }
 }
