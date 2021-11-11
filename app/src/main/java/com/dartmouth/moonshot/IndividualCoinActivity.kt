@@ -2,6 +2,7 @@ package com.dartmouth.moonshot
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -37,6 +38,12 @@ class IndividualCoinActivity: AppCompatActivity() {
     private var coinID: String? = null
     private var homepageURL: String? = null
 
+    private var announcement: String? = null
+    private var chat: String? = null
+    private var facebook: String? = null
+    private var forum: String? = null
+    private var twitter: String? = null
+
     companion object coinSPKeys {
         val BUNDLE_KEY = "bundle"
         val ADDRESS_KEY = "address"
@@ -49,6 +56,11 @@ class IndividualCoinActivity: AppCompatActivity() {
         val IMAGE_LARGE_KEY = "image-large"
         val ID_KEY = "id"
         val HOMEPAGE_KEY = "homepage"
+        val ANNOUNCEMENT_KEY = "announcement"
+        val CHAT_KEY = "chat"
+        val FACEBOOK_KEY = "facebook"
+        val FORUM_KEY = "forum"
+        val TWITTER_KEY = "key"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,8 +100,7 @@ class IndividualCoinActivity: AppCompatActivity() {
 
         socialButton = findViewById(R.id.twit)
         socialButton.setOnClickListener(){
-            val url = "https://www.coingecko.com/en/coins/" + coinID
-            showWebpage(url)
+            showSocials()
         }
 
 
@@ -124,12 +135,16 @@ class IndividualCoinActivity: AppCompatActivity() {
         symbol = intent.getStringExtra(SYMBOL_KEY)
         homepageURL = intent.getStringExtra(HOMEPAGE_KEY)
 
+        announcement = intent.getStringExtra(ANNOUNCEMENT_KEY)
+        chat = intent.getStringExtra(CHAT_KEY)
+        facebook = intent.getStringExtra(FACEBOOK_KEY)
+        forum = intent.getStringExtra(FORUM_KEY)
+        twitter = intent.getStringExtra(TWITTER_KEY)
+
+        Log.d("debug", "twitter = $twitter")
+
         coinHomepageButton = findViewById(R.id.web)
         if(homepageURL != null && homepageURL != ""){
-            if(homepageURL!!.subSequence(0,5) == "http:"){
-                val end = homepageURL!!.substring(5)
-                homepageURL = "https:" + end
-            }
             coinHomepageButton.setOnClickListener() {
                 showWebpage(homepageURL)
             }
@@ -138,10 +153,25 @@ class IndividualCoinActivity: AppCompatActivity() {
         }
     }
 
+    fun showSocials(){
+        val intent = Intent(this, SocialsActivity::class.java)
+        intent.putExtra(SocialsActivity.ANNOUNCEMENT_KEY, announcement)
+        intent.putExtra(SocialsActivity.CHAT_KEY, chat)
+        intent.putExtra(SocialsActivity.FACEBOOK_KEY, facebook)
+        intent.putExtra(SocialsActivity.FORUM_KEY, forum)
+        intent.putExtra(SocialsActivity.TWITTER_KEY, twitter)
+        startActivity(intent)
+    }
+
     fun showWebpage(url: String?){
+        var finalUrl = url
+        if(url!!.subSequence(0,5) == "http:"){
+            val end = url!!.substring(5)
+            finalUrl = "https:" + end
+        }
         val intent = Intent(this, CoinWebpageActivity::class.java)
         // Hardcode
-        intent.putExtra(CoinWebpageActivity.URL_KEY, url)
+        intent.putExtra(CoinWebpageActivity.URL_KEY, finalUrl)
         this.startActivity(intent)
     }
 

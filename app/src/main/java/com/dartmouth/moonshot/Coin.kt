@@ -25,7 +25,7 @@ data class Coin(
     var links_homepage: String? = null,
     @get:PropertyName("links-official_forum_url") @set:PropertyName("links-official_forum_url")
     var links_official_forum_url: String? = null,
-    @get:PropertyName("links-telegram_channel_identifier") @set:PropertyName("links-telegram_channel_identifier")
+    @get:PropertyName("links-twitter_screen_name") @set:PropertyName("links-twitter_screen_name")
     var links_twitter_screen_name: String? = null,
     @get:PropertyName("links-blockchain_site") @set:PropertyName("links-blockchain_site")
     var links_blockchain_site: String? = null,

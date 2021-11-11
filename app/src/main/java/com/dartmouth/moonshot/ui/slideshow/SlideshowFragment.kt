@@ -3,6 +3,7 @@ package com.dartmouth.moonshot.ui.slideshow
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -203,6 +204,12 @@ class SlideshowFragment : Fragment() {
             indCoinIntent.putExtra(IndividualCoinActivity.IMAGE_LARGE_KEY, itemSelected.image_large)
             indCoinIntent.putExtra(IndividualCoinActivity.ID_KEY, itemSelected.id)
             indCoinIntent.putExtra(IndividualCoinActivity.HOMEPAGE_KEY, itemSelected.links_homepage)
+            indCoinIntent.putExtra(IndividualCoinActivity.ANNOUNCEMENT_KEY, itemSelected.links_announcement_url)
+            indCoinIntent.putExtra(IndividualCoinActivity.CHAT_KEY, itemSelected.links_chat_url)
+            indCoinIntent.putExtra(IndividualCoinActivity.FACEBOOK_KEY, itemSelected.links_facebook_username)
+            indCoinIntent.putExtra(IndividualCoinActivity.FORUM_KEY, itemSelected.links_official_forum_url)
+            indCoinIntent.putExtra(IndividualCoinActivity.TWITTER_KEY, itemSelected.links_twitter_screen_name)
+            Log.d("debug", "in slideshow, twitter = ${itemSelected.links_twitter_screen_name}")
             //Toast.makeText(this.activity, itemSelected.name, Toast.LENGTH_LONG).show()
             //Toast.makeText(this.activity, itemSelected.image_large.toString(), Toast.LENGTH_LONG).show()
 
