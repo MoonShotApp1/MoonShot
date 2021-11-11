@@ -201,6 +201,8 @@ class SlideshowFragment : Fragment() {
             indCoinIntent.putExtra(IndividualCoinActivity.CURRENT_PRICE_KEY, itemSelected.currentPrice.toString())
             indCoinIntent.putExtra(IndividualCoinActivity.ADDRESS_KEY, itemSelected.address)
             indCoinIntent.putExtra(IndividualCoinActivity.IMAGE_LARGE_KEY, itemSelected.image_large)
+            indCoinIntent.putExtra(IndividualCoinActivity.ID_KEY, itemSelected.id)
+            indCoinIntent.putExtra(IndividualCoinActivity.HOMEPAGE_KEY, itemSelected.links_homepage)
             //Toast.makeText(this.activity, itemSelected.name, Toast.LENGTH_LONG).show()
             //Toast.makeText(this.activity, itemSelected.image_large.toString(), Toast.LENGTH_LONG).show()
 

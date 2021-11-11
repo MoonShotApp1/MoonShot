@@ -31,6 +31,7 @@
         <activity android:name=".LogInActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".CoinWebpageActivity" />
+        <activity android:name=".SocialsActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.dartmouth.moonshot"

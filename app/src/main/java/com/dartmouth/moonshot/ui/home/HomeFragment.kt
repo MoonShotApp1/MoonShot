@@ -110,8 +110,8 @@ class HomeFragment : Fragment() {
 
         buttonSignOut = root.findViewById(R.id.button_signout)
         buttonSignOut.setOnClickListener(){
-                signOutUser()
-            }
+            signOutUser()
+        }
 
         buttonUpdateName = root.findViewById(R.id.button_update_name)
         buttonUpdateName.setOnClickListener(){

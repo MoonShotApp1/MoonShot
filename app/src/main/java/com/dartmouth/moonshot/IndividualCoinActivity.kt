@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
@@ -16,8 +17,10 @@ import com.squareup.picasso.Picasso
 
 class IndividualCoinActivity: AppCompatActivity() {
     private lateinit var closeButton: Button
-    private lateinit var moreInfoButton: Button
+    private lateinit var chartButton: Button
     private lateinit var saveButton: Button
+    private lateinit var coinHomepageButton: Button
+    private lateinit var socialButton: Button
 
     private lateinit var profileViewModel: ProfileViewModel
 
@@ -31,6 +34,8 @@ class IndividualCoinActivity: AppCompatActivity() {
     private var name: String? = null
     private var symbol: String? = null
     private var imageLarge: String? = null
+    private var coinID: String? = null
+    private var homepageURL: String? = null
 
     companion object coinSPKeys {
         val BUNDLE_KEY = "bundle"
@@ -42,6 +47,8 @@ class IndividualCoinActivity: AppCompatActivity() {
         val NAME_KEY = "name"
         val SYMBOL_KEY = "symbol"
         val IMAGE_LARGE_KEY = "image-large"
+        val ID_KEY = "id"
+        val HOMEPAGE_KEY = "homepage"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,12 +80,22 @@ class IndividualCoinActivity: AppCompatActivity() {
             finish()
         }
 
-        moreInfoButton = findViewById(R.id.web)
-        moreInfoButton.setOnClickListener(){
-            showMoreInfo()
+        chartButton = findViewById(R.id.soc)
+        chartButton.setOnClickListener(){
+            val url = "https://www.coingecko.com/en/coins/" + coinID
+            showWebpage(url)
         }
 
+        socialButton = findViewById(R.id.twit)
+        socialButton.setOnClickListener(){
+            val url = "https://www.coingecko.com/en/coins/" + coinID
+            showWebpage(url)
+        }
+
+
         imageLarge = intent.getStringExtra(IMAGE_LARGE_KEY)
+        coinID = intent.getStringExtra(ID_KEY)
+
 
         val nameTextView: TextView = findViewById(R.id.coinName)
         val symbolTextView: TextView = findViewById(R.id.coinSymbol)
@@ -105,14 +122,26 @@ class IndividualCoinActivity: AppCompatActivity() {
         //holders = intent.getStringExtra(HOLDERS_KEY)
         name = intent.getStringExtra(NAME_KEY)
         symbol = intent.getStringExtra(SYMBOL_KEY)
+        homepageURL = intent.getStringExtra(HOMEPAGE_KEY)
+
+        coinHomepageButton = findViewById(R.id.web)
+        if(homepageURL != null && homepageURL != ""){
+            if(homepageURL!!.subSequence(0,5) == "http:"){
+                val end = homepageURL!!.substring(5)
+                homepageURL = "https:" + end
+            }
+            coinHomepageButton.setOnClickListener() {
+                showWebpage(homepageURL)
+            }
+        } else {
+            coinHomepageButton.isVisible = false
+        }
     }
 
-    fun showMoreInfo(){
+    fun showWebpage(url: String?){
         val intent = Intent(this, CoinWebpageActivity::class.java)
         // Hardcode
-        intent.putExtra(CoinWebpageActivity.COIN_ADDRESS_KEY, address)
-        //intent.putExtra(CoinWebpageActivity.BLOCKCHAIN_TYPE_KEY, blockchainType)
-        //intent.putExtra(CoinWebpageActivity.COIN_ADDRESS_KEY, "0xb45f65561bdbef60e6f716a755394efee977c4ac")
+        intent.putExtra(CoinWebpageActivity.URL_KEY, url)
         this.startActivity(intent)
     }
 
