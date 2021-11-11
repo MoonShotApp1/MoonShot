@@ -128,6 +128,9 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        profileViewModel =
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+                .create(ProfileViewModel::class.java)
         //mFirebaseAuth = FirebaseAuth.getInstance()
 
         // Get saved name
