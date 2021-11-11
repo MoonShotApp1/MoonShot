@@ -31,6 +31,7 @@ class IndividualCoinActivity: AppCompatActivity() {
     private var name: String? = null
     private var symbol: String? = null
     private var imageLarge: String? = null
+    private var coinID: String? = null
 
     companion object coinSPKeys {
         val BUNDLE_KEY = "bundle"
@@ -42,6 +43,7 @@ class IndividualCoinActivity: AppCompatActivity() {
         val NAME_KEY = "name"
         val SYMBOL_KEY = "symbol"
         val IMAGE_LARGE_KEY = "image-large"
+        val ID_KEY = "id"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,6 +81,8 @@ class IndividualCoinActivity: AppCompatActivity() {
         }
 
         imageLarge = intent.getStringExtra(IMAGE_LARGE_KEY)
+        coinID = intent.getStringExtra(ID_KEY)
+
 
         val nameTextView: TextView = findViewById(R.id.coinName)
         val symbolTextView: TextView = findViewById(R.id.coinSymbol)
@@ -111,6 +115,7 @@ class IndividualCoinActivity: AppCompatActivity() {
         val intent = Intent(this, CoinWebpageActivity::class.java)
         // Hardcode
         intent.putExtra(CoinWebpageActivity.COIN_ADDRESS_KEY, address)
+        intent.putExtra(CoinWebpageActivity.COIN_ID_KEY, coinID)
         //intent.putExtra(CoinWebpageActivity.BLOCKCHAIN_TYPE_KEY, blockchainType)
         //intent.putExtra(CoinWebpageActivity.COIN_ADDRESS_KEY, "0xb45f65561bdbef60e6f716a755394efee977c4ac")
         this.startActivity(intent)
