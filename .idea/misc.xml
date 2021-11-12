@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/SFU/Desktop/MoonShot/app/src/main/res/drawable/customborder.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/SFU/Desktop/MoonShot/app/src/main/res/layout/activity_individual_coin.xml" value="0.259375" />
+        <entry key="..\:/Users/SFU/Desktop/MoonShot/app/src/main/res/layout/activity_socials.xml" value="0.264" />
+        <entry key="..\:/Users/SFU/Desktop/MoonShot/app/src/main/res/layout/fragment_slideshow.xml" value="0.259375" />
+        <entry key="..\:/Users/SFU/Desktop/MoonShot/app/src/main/res/layout/layout_reccoin_list.xml" value="0.259375" />
         <entry key="app/src/main/res/layout/activity_individual_coin.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1393110435663627" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.1" />

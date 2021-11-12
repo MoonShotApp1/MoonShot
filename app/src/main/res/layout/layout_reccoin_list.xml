@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- https://stackoverflow.com/questions/15111402/how-can-i-create-a-border-around-an-android-linearlayout -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
+    android:paddingLeft="2dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,6 +19,7 @@
     </ImageView>
 
     <LinearLayout
+        android:paddingLeft="6dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

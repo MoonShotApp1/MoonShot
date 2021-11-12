@@ -76,11 +76,6 @@ class SlideshowFragment : Fragment() {
         bnb = root.findViewById(R.id.bnb)
         other1 = root.findViewById(R.id.other1)
 
-        name = root.findViewById(R.id.name)
-        price = root.findViewById(R.id.price)
-        tfhp = root.findViewById(R.id.tfhp)
-        mrktCap = root.findViewById(R.id.mrktCap)
-
         coinListView = binding.listv
 
         //------------------------------------------------------------------------------------

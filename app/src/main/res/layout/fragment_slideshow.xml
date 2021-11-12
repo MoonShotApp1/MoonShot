@@ -122,48 +122,6 @@
     </LinearLayout>
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:textColor="#FFFFFF"
-            android:id="@+id/name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="Name"
-            android:textSize="20sp" />
-
-        <TextView
-            android:textColor="#FFFFFF"
-            android:id="@+id/price"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="price"
-            android:textSize="20sp" />
-
-        <TextView
-            android:textColor="#FFFFFF"
-            android:id="@+id/tfhp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="24h%"
-            android:textSize="20sp" />
-
-        <TextView
-            android:textColor="#FFFFFF"
-            android:id="@+id/mrktCap"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Mrkt Cap"
-            android:textSize="20sp" />
-    </LinearLayout>
-
     <ListView
         android:textColor="#FFFFFF"
         android:id="@+id/listv"
