@@ -23,12 +23,10 @@ class SlideshowFragment : Fragment() {
     lateinit var marketCapB: TextView
 
     lateinit var radgrp: RadioGroup
-    lateinit var liked: Button
     lateinit var all: Button
     lateinit var eth: Button
     lateinit var bnb: Button
     lateinit var other1: Button
-    lateinit var other2: Button
 
     lateinit var name: TextView
     lateinit var price: TextView
@@ -73,12 +71,10 @@ class SlideshowFragment : Fragment() {
         marketCapB = root.findViewById(R.id.marketCapB)
 
         radgrp = root.findViewById(R.id.radgrp)
-        liked = root.findViewById(R.id.liked)
         all = root.findViewById(R.id.all)
         eth = root.findViewById(R.id.eth)
         bnb = root.findViewById(R.id.bnb)
         other1 = root.findViewById(R.id.other1)
-        other2 = root.findViewById(R.id.other2)
 
         name = root.findViewById(R.id.name)
         price = root.findViewById(R.id.price)
@@ -136,105 +132,60 @@ class SlideshowFragment : Fragment() {
         radgrp.setOnCheckedChangeListener { radioGroup, optionId ->
             run {
                 when (optionId) {
-                    R.id.liked -> {
-                        liked.rotation = 30F
-                        all.rotation = 0F
-                        eth.rotation = 0F
-                        bnb.rotation = 0F
-                        other1.rotation = 0F
-                        other2.rotation = 0F
-
-                        liked.setTextColor(Color.parseColor("#FFFF00"))
-                        all.setTextColor(Color.parseColor("#FFFFFF"))
-                        eth.setTextColor(Color.parseColor("#FFFFFF"))
-                        bnb.setTextColor(Color.parseColor("#FFFFFF"))
-                        other1.setTextColor(Color.parseColor("#FFFFFF"))
-                        other2.setTextColor(Color.parseColor("#FFFFFF"))
-                    }
 
                     R.id.all -> {
-                        liked.rotation = 0F
                         all.rotation = 30F
                         eth.rotation = 0F
                         bnb.rotation = 0F
                         other1.rotation = 0F
-                        other2.rotation = 0F
 
-                        liked.setTextColor(Color.parseColor("#FFFFFF"))
                         all.setTextColor(Color.parseColor("#FFFF00"))
                         eth.setTextColor(Color.parseColor("#FFFFFF"))
                         bnb.setTextColor(Color.parseColor("#FFFFFF"))
                         other1.setTextColor(Color.parseColor("#FFFFFF"))
-                        other2.setTextColor(Color.parseColor("#FFFFFF"))
                         arrayAdapter.replace(arrayList)
                         arrayAdapter.notifyDataSetChanged()
                     }
                     R.id.eth -> {
-                        liked.rotation = 0F
                         all.rotation = 0F
                         eth.rotation = 30F
                         bnb.rotation = 0F
                         other1.rotation = 0F
-                        other2.rotation = 0F
 
-                        liked.setTextColor(Color.parseColor("#FFFFFF"))
+
                         all.setTextColor(Color.parseColor("#FFFFFF"))
                         eth.setTextColor(Color.parseColor("#FFFF00"))
                         bnb.setTextColor(Color.parseColor("#FFFFFF"))
                         other1.setTextColor(Color.parseColor("#FFFFFF"))
-                        other2.setTextColor(Color.parseColor("#FFFFFF"))
 
                         arrayAdapter.replace(coinsByPubInterest)
                         arrayAdapter.notifyDataSetChanged()
                     }
                     R.id.bnb -> {
-                        liked.rotation = 0F
                         all.rotation = 0F
                         eth.rotation = 0F
                         bnb.rotation = 30F
                         other1.rotation = 0F
-                        other2.rotation = 0F
 
-                        liked.setTextColor(Color.parseColor("#FFFFFF"))
                         all.setTextColor(Color.parseColor("#FFFFFF"))
                         eth.setTextColor(Color.parseColor("#FFFFFF"))
                         bnb.setTextColor(Color.parseColor("#FFFF00"))
                         other1.setTextColor(Color.parseColor("#FFFFFF"))
-                        other2.setTextColor(Color.parseColor("#FFFFFF"))
                         arrayAdapter.replace(coinsBy24hChange)
                         arrayAdapter.notifyDataSetChanged()
                     }
                     R.id.other1 -> {
-                        liked.rotation = 0F
                         all.rotation = 0F
                         eth.rotation = 0F
                         bnb.rotation = 0F
                         other1.rotation = 30F
-                        other2.rotation = 0F
 
-                        liked.setTextColor(Color.parseColor("#FFFFFF"))
                         all.setTextColor(Color.parseColor("#FFFFFF"))
                         eth.setTextColor(Color.parseColor("#FFFFFF"))
                         bnb.setTextColor(Color.parseColor("#FFFFFF"))
                         other1.setTextColor(Color.parseColor("#FFFF00"))
-                        other2.setTextColor(Color.parseColor("#FFFFFF"))
                         arrayAdapter.replace(coinsByCurrentPrice)
                         arrayAdapter.notifyDataSetChanged()
-                    }
-                    R.id.other2 -> {var a = 0
-                        liked.rotation = 0F
-                        all.rotation = 0F
-                        eth.rotation = 0F
-                        bnb.rotation = 0F
-                        other1.rotation = 0F
-                        other2.rotation = 30F
-
-                        liked.setTextColor(Color.parseColor("#FFFFFF"))
-                        all.setTextColor(Color.parseColor("#FFFFFF"))
-                        eth.setTextColor(Color.parseColor("#FFFFFF"))
-                        bnb.setTextColor(Color.parseColor("#FFFFFF"))
-                        other1.setTextColor(Color.parseColor("#FFFFFF"))
-                        other2.setTextColor(Color.parseColor("#FFFF00"))
                     }
                 }
             }

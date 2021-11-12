@@ -70,7 +70,7 @@ class CoinRepository {
                 if (snapshot.exists()) {
                     for(snap in snapshot.children){
                         val coinModel = snap.getValue(Coin::class.java)
-                        if (coinModel != null && coinIDs.contains(coinModel.address)) {
+                        if (coinModel != null && coinIDs.contains(coinModel.id)) {
                             savedCoinsList.add(coinModel)
                         }
                     }

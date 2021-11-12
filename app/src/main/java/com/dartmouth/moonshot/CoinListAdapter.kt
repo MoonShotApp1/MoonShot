@@ -4,7 +4,9 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 
 class CoinListAdapter(val context: Activity, var coinList: ArrayList<Coin>): BaseAdapter()  {
     override fun getCount(): Int {
@@ -26,11 +28,13 @@ class CoinListAdapter(val context: Activity, var coinList: ArrayList<Coin>): Bas
         val textViewSymb = view.findViewById(R.id.tv_symbol) as TextView
         val textViewBCType = view.findViewById(R.id.tv_blockchaintype) as TextView
         val textViewCurrPrice = view.findViewById(R.id.tv_currentprice) as TextView
+        val iconPic = view.findViewById(R.id.iconPic) as ImageView
 
-        textViewName.text = coinList.get(position).name
-        textViewSymb.text = coinList.get(position).symbol
-        textViewBCType.text = coinList.get(position).platforms
-        textViewCurrPrice.text = coinList.get(position).currentPrice.toString()
+        textViewName.text = "NAME: " + coinList.get(position).name
+        textViewSymb.text = "SYMBOL: " + coinList.get(position).symbol
+        textViewBCType.text = "PLATFORM: " + coinList.get(position).platforms
+        textViewCurrPrice.text = "PRICE $" + coinList.get(position).currentPrice.toString()
+        Picasso.get().load(coinList.get(position).image_large).into(iconPic)
 
         return view
     }

@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- https://stackoverflow.com/questions/15111402/how-can-i-create-a-border-around-an-android-linearlayout -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@drawable/customborder">
+
+
+    <ImageView
+        android:id="@+id/iconPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/rocket_emoji">
+    </ImageView>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="40dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:text="Tether USD"
-            android:padding="3dp"
             android:textSize="15sp"
             android:textStyle="bold"/>
 
@@ -23,38 +34,32 @@
             android:textColor="#FFFFFF"
             android:id="@+id/tv_symbol"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="40dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:text="USDT"
-            android:padding="5dp"
             android:textSize="15sp"
             android:textStyle="bold"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/tv_blockchaintype"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:text="Ethereum"
-            android:gravity="end|top"
-            android:textSize="15sp" />
-
+            android:textSize="15sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/tv_currentprice"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="40dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:text="$2000"
-            android:padding="3dp"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:textStyle="bold"/>
     </LinearLayout>
+
 
 </LinearLayout>

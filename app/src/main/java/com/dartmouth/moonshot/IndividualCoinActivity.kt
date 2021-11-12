@@ -73,6 +73,7 @@ class IndividualCoinActivity: AppCompatActivity() {
         }
 
         address = intent.getStringExtra(ADDRESS_KEY)
+        coinID = intent.getStringExtra(ID_KEY)
 
         mFirebaseAuth = FirebaseAuth.getInstance()
         //profileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
@@ -86,7 +87,7 @@ class IndividualCoinActivity: AppCompatActivity() {
         saveButton = findViewById(R.id.button_save)
         saveButton.setOnClickListener(){
             if (savedCoinsList != null) {
-                address?.let { it1 -> savedCoinsList.add(it1) }
+                coinID?.let { it1 -> savedCoinsList.add(it1) }
                 profileViewModel.updateSavedCoins(savedCoinsList)
             }
             finish()
@@ -105,7 +106,6 @@ class IndividualCoinActivity: AppCompatActivity() {
 
 
         imageLarge = intent.getStringExtra(IMAGE_LARGE_KEY)
-        coinID = intent.getStringExtra(ID_KEY)
 
 
         val nameTextView: TextView = findViewById(R.id.coinName)

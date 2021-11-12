@@ -81,51 +81,43 @@
 
         <RadioGroup
             android:id="@+id/radgrp"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/liked"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Liked"
-                android:textColor="#FFFFFF"></RadioButton>
-
-            <RadioButton
                 android:textColor="#FFFFFF"
                 android:id="@+id/all"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:text="All"></RadioButton>
 
             <RadioButton
                 android:textColor="#FFFFFF"
                 android:id="@+id/eth"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="ETH"></RadioButton>
+                android:text="Public Interest"></RadioButton>
 
             <RadioButton
                 android:textColor="#FFFFFF"
                 android:id="@+id/bnb"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="BNB"></RadioButton>
+                android:text="24 Hour Change"></RadioButton>
 
             <RadioButton
                 android:textColor="#FFFFFF"
                 android:id="@+id/other1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="Other1"></RadioButton>
+                android:text="Price"></RadioButton>
 
-            <RadioButton
-                android:textColor="#FFFFFF"
-                android:id="@+id/other2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Other2"></RadioButton>
         </RadioGroup>
     </LinearLayout>
 

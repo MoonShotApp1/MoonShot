@@ -8,7 +8,7 @@ data class Coin(
     var public_interest: Double? = null,
     var address: String? = null,
     var id: String? = null,
-    var platforms: String? = null,
+    var platforms: String? = "unknown",
     @get:PropertyName("image-large") @set:PropertyName("image-large")
     var image_large: String? = null,
     @get:PropertyName("image-small") @set:PropertyName("image-small")
