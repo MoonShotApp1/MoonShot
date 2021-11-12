@@ -10,8 +10,10 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.reflect.TypeToken
 import com.google.gson.Gson
-
-
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.map
 
 
 class ProfileRepository {
@@ -31,6 +33,29 @@ class ProfileRepository {
             return instance!!
         }
     }
+
+    fun DatabaseReference.observeValue(): Flow<DataSnapshot?> =
+        callbackFlow {
+            val listener = object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    close(error.toException())
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    offer(snapshot)
+                }
+            }
+            addValueEventListener(listener)
+            awaitClose { removeEventListener(listener) }
+        }
+
+    /*fun getUser(): Flow<User> = Firebase.database.getReference("Users").child(mFirebaseAuth!!.currentUser!!.uid).observeValue().map {
+        var userModel = User()
+        if(it != null){
+            userModel = it.getValue(User::class.java)!!
+        }
+        userModel
+    }*/
 
     fun getUser(): LiveData<User> {
 
