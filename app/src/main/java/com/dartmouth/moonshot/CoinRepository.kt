@@ -10,6 +10,16 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
+import androidx.annotation.NonNull
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.map
+
+
 class CoinRepository {
 
     private var liveData: MutableLiveData<ArrayList<Coin>>? = null
@@ -17,6 +27,8 @@ class CoinRepository {
     private lateinit var databaseReference: DatabaseReference
 
     private var mFirebaseAuth = FirebaseAuth.getInstance()
+
+    //val allWorkoutEntries: Flow<ArrayList<Coin>> = workoutDatabaseDao.getAllWorkoutEntries()
 
     object StaticFunction {
         private var instance: CoinRepository? = null
@@ -28,35 +40,53 @@ class CoinRepository {
         }
     }
 
+    /*interface ValueEventListener {
+        fun onDataChange(snapshot: DataSnapshot)
+        fun onCancelled(error: DatabaseError)
+    }*/
 
-    fun getAllCoins(): LiveData<ArrayList<Coin>> {
-        var coinsList = ArrayList<Coin>()
-        if (liveData == null){
-            liveData = MutableLiveData()
-        }
-        databaseReference =
-            Firebase.database.getReference("Coins")
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    for(snap in snapshot.children){
-                        val coinModel = snap.getValue(Coin::class.java)
-                        if (coinModel != null) {
-                            coinsList.add(coinModel)
-                        }
-                    }
-                    liveData!!.postValue(coinsList)
+    fun DatabaseReference.observeValue(): Flow<DataSnapshot?> =
+        callbackFlow {
+            val listener = object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    close(error.toException())
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    offer(snapshot)
                 }
             }
+            addValueEventListener(listener)
+            awaitClose { removeEventListener(listener) }
+        }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+    fun getAllCoins(): Flow<ArrayList<Coin>> = Firebase.database.getReference("Coins").observeValue().map {
+        var coinsList = ArrayList<Coin>()
+        if (it != null) {
+            for (snap in it.children) {
+                val coinModel = snap.getValue(Coin::class.java)
+                if (coinModel != null) {
+                    coinsList.add(coinModel)
+                }
             }
-
-        })
-
-        return liveData!!
+        }
+        //it?.value as ArrayList<Coin>
+        coinsList
     }
+
+    /*fun getSavedCoins(coinIDs: ArrayList<String>): Flow<ArrayList<Coin>> = Firebase.database.getReference("Coins").observeValue().map {
+        var savedCoinsList = ArrayList<Coin>()
+        if (it != null) {
+            for (snap in it.children) {
+                val coinModel = snap.getValue(Coin::class.java)
+                if (coinModel != null && coinIDs.contains(coinModel.id)) {
+                    savedCoinsList.add(coinModel)
+                }
+            }
+        }
+        //it?.value as ArrayList<Coin>
+        savedCoinsList
+    }*/
 
     fun getSavedCoins(coinIDs: ArrayList<String>): LiveData<ArrayList<Coin>>{
         var savedCoinsList = ArrayList<Coin>()

@@ -20,19 +20,38 @@
         app:srcCompat="@drawable/default_profile"/>-->
 
     <!--<de.hdodenhof.circleimageview.CircleImageView-->
-    <ImageView
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgProfile"
+        imageUrl="@{userModel.image}"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/default_profile"
+        app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"/>
+    <!--<ImageView
         android:id="@+id/imgProfile"
         imageUrl="@{userModel.image}"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/default_profile"/>
+        android:src="@drawable/default_profile"/>-->
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
 
     <TextView
         android:textColor="#FFFFFF"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="Your Name"/>
+
 
     <EditText
         android:textColor="#FFFFFF"
@@ -41,6 +60,10 @@
         android:id="@+id/edittext_name"
         android:text="@{userModel.name}"
         android:hint="Enter your name here"/>
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
 
     <TextView
         android:textColor="#FFFFFF"
@@ -55,6 +78,10 @@
         android:id="@+id/edittext_bio"
         android:text="@{userModel.bio}"
         android:hint="Write your bio here"/>
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
 
     <!--<TextView
         android:id="@+id/text_home"
@@ -71,6 +98,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/button_update_name"
         android:text="Update Profile"/>
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
 
     <Button
         android:layout_width="match_parent"
