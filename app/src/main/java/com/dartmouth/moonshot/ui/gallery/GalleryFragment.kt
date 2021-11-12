@@ -29,6 +29,8 @@ class GalleryFragment : Fragment() {
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var savedCoinsList: ArrayList<String>
 
+    private var cList: ArrayList<Coin>? = null
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -60,8 +62,15 @@ class GalleryFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when(direction){
                     ItemTouchHelper.LEFT -> {
-                        arrayAdapter.deleteItem(viewHolder.adapterPosition)
                         //add delete from database here
+                        var cIDs = ArrayList<String>()
+                        for(coind in 0..cList!!.size-1){
+                            if(coind != viewHolder.adapterPosition){
+                                cList!!.get(coind).id?.let { cIDs.add(it) }
+                            }
+                        }
+                        //profileViewModel.updateSavedCoins(cIDs)
+                        arrayAdapter.deleteItem(viewHolder.adapterPosition)
                     }
                 }
             }
@@ -106,7 +115,7 @@ class GalleryFragment : Fragment() {
         profileViewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->
             savedCoinsList = fromString(userModel.savedCoins)
             //Toast.makeText(this.activity, savedCoinsList.toString(), Toast.LENGTH_LONG).show()
-            var cList = coinViewModel.getSavedCoins(savedCoinsList).value
+            cList = coinViewModel.getSavedCoins(savedCoinsList).value
             //println(cList.toString())
             if(cList != null){
                 //Toast.makeText(this.activity, cList.size.toString(), Toast.LENGTH_LONG).show()
