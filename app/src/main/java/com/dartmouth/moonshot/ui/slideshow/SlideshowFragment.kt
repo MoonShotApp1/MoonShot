@@ -43,6 +43,9 @@ class SlideshowFragment : Fragment() {
     private lateinit var coinListView: ListView
     private lateinit var arrayList: ArrayList<Coin>
     private lateinit var arrayAdapter: CoinListAdapter
+    private lateinit var coinsByPubInterest: ArrayList<Coin>
+    private lateinit var coinsBy24hChange: ArrayList<Coin>
+    private lateinit var coinsByCurrentPrice: ArrayList<Coin>
 
     private lateinit var coinViewModel: CoinViewModel
 
@@ -86,6 +89,49 @@ class SlideshowFragment : Fragment() {
 
         //------------------------------------------------------------------------------------
 
+        arrayList = ArrayList()
+        arrayAdapter = CoinListAdapter(requireActivity(), arrayList)
+        coinListView.adapter = arrayAdapter
+
+        coinListView.setOnItemClickListener() { parent: AdapterView<*>, view: View, position: Int, id: Long ->
+            val itemSelected: Coin = parent.getItemAtPosition(position) as Coin
+
+            val indCoinIntent = Intent(requireActivity(), IndividualCoinActivity::class.java)
+
+            indCoinIntent.putExtra(IndividualCoinActivity.NAME_KEY, itemSelected.name)
+            indCoinIntent.putExtra(IndividualCoinActivity.SYMBOL_KEY, itemSelected.symbol)
+            indCoinIntent.putExtra(IndividualCoinActivity.BLOCKCHAIN_TYPE_KEY, itemSelected.platforms)
+            indCoinIntent.putExtra(IndividualCoinActivity.CURRENT_PRICE_KEY, itemSelected.currentPrice.toString())
+            indCoinIntent.putExtra(IndividualCoinActivity.ADDRESS_KEY, itemSelected.address)
+            indCoinIntent.putExtra(IndividualCoinActivity.IMAGE_LARGE_KEY, itemSelected.image_large)
+            indCoinIntent.putExtra(IndividualCoinActivity.ID_KEY, itemSelected.id)
+            indCoinIntent.putExtra(IndividualCoinActivity.HOMEPAGE_KEY, itemSelected.links_homepage)
+            indCoinIntent.putExtra(IndividualCoinActivity.ANNOUNCEMENT_KEY, itemSelected.links_announcement_url)
+            indCoinIntent.putExtra(IndividualCoinActivity.CHAT_KEY, itemSelected.links_chat_url)
+            indCoinIntent.putExtra(IndividualCoinActivity.FACEBOOK_KEY, itemSelected.links_facebook_username)
+            indCoinIntent.putExtra(IndividualCoinActivity.FORUM_KEY, itemSelected.links_official_forum_url)
+            indCoinIntent.putExtra(IndividualCoinActivity.TWITTER_KEY, itemSelected.links_twitter_screen_name)
+            //Toast.makeText(this.activity, itemSelected.name, Toast.LENGTH_LONG).show()
+            //Toast.makeText(this.activity, itemSelected.image_large.toString(), Toast.LENGTH_LONG).show()
+
+            startActivity(indCoinIntent)
+        }
+
+        coinViewModel =
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+                .create(CoinViewModel::class.java)
+
+        coinViewModel.getAllCoins().observe(viewLifecycleOwner, Observer { allCoinsList ->
+            coinsBy24hChange = ArrayList(allCoinsList.sortedWith(compareBy({it.priceChangePercent24})))
+            coinsByPubInterest = ArrayList(allCoinsList.sortedWith(compareBy({it.public_interest})))
+            coinsByCurrentPrice = ArrayList(allCoinsList.sortedWith(compareBy({it.currentPrice})))
+            arrayList = allCoinsList as ArrayList<Coin>
+            //arrayAdapter.replace(allCoinsList)
+            arrayAdapter.notifyDataSetChanged()
+        })
+        arrayAdapter.replace(arrayList)
+        arrayAdapter.notifyDataSetChanged()
+
         //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         radgrp.setOnCheckedChangeListener { radioGroup, optionId ->
             run {
@@ -120,6 +166,8 @@ class SlideshowFragment : Fragment() {
                         bnb.setTextColor(Color.parseColor("#FFFFFF"))
                         other1.setTextColor(Color.parseColor("#FFFFFF"))
                         other2.setTextColor(Color.parseColor("#FFFFFF"))
+                        arrayAdapter.replace(arrayList)
+                        arrayAdapter.notifyDataSetChanged()
                     }
                     R.id.eth -> {
                         liked.rotation = 0F
@@ -135,6 +183,9 @@ class SlideshowFragment : Fragment() {
                         bnb.setTextColor(Color.parseColor("#FFFFFF"))
                         other1.setTextColor(Color.parseColor("#FFFFFF"))
                         other2.setTextColor(Color.parseColor("#FFFFFF"))
+
+                        arrayAdapter.replace(coinsByPubInterest)
+                        arrayAdapter.notifyDataSetChanged()
                     }
                     R.id.bnb -> {
                         liked.rotation = 0F
@@ -150,6 +201,8 @@ class SlideshowFragment : Fragment() {
                         bnb.setTextColor(Color.parseColor("#FFFF00"))
                         other1.setTextColor(Color.parseColor("#FFFFFF"))
                         other2.setTextColor(Color.parseColor("#FFFFFF"))
+                        arrayAdapter.replace(coinsBy24hChange)
+                        arrayAdapter.notifyDataSetChanged()
                     }
                     R.id.other1 -> {
                         liked.rotation = 0F
@@ -165,6 +218,8 @@ class SlideshowFragment : Fragment() {
                         bnb.setTextColor(Color.parseColor("#FFFFFF"))
                         other1.setTextColor(Color.parseColor("#FFFF00"))
                         other2.setTextColor(Color.parseColor("#FFFFFF"))
+                        arrayAdapter.replace(coinsByCurrentPrice)
+                        arrayAdapter.notifyDataSetChanged()
                     }
                     R.id.other2 -> {var a = 0
                         liked.rotation = 0F
@@ -185,36 +240,6 @@ class SlideshowFragment : Fragment() {
             }
         }
         //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-        arrayList = ArrayList()
-        arrayAdapter = CoinListAdapter(requireActivity(), arrayList)
-        coinListView.adapter = arrayAdapter
-
-        coinListView.setOnItemClickListener() { parent: AdapterView<*>, view: View, position: Int, id: Long ->
-            val itemSelected: Coin = parent.getItemAtPosition(position) as Coin
-
-            val indCoinIntent = Intent(requireActivity(), IndividualCoinActivity::class.java)
-
-            indCoinIntent.putExtra(IndividualCoinActivity.NAME_KEY, itemSelected.name)
-            indCoinIntent.putExtra(IndividualCoinActivity.SYMBOL_KEY, itemSelected.symbol)
-            indCoinIntent.putExtra(IndividualCoinActivity.BLOCKCHAIN_TYPE_KEY, itemSelected.platforms)
-            indCoinIntent.putExtra(IndividualCoinActivity.CURRENT_PRICE_KEY, itemSelected.currentPrice.toString())
-            indCoinIntent.putExtra(IndividualCoinActivity.ADDRESS_KEY, itemSelected.address)
-            indCoinIntent.putExtra(IndividualCoinActivity.IMAGE_LARGE_KEY, itemSelected.image_large)
-            //Toast.makeText(this.activity, itemSelected.name, Toast.LENGTH_LONG).show()
-            //Toast.makeText(this.activity, itemSelected.image_large.toString(), Toast.LENGTH_LONG).show()
-
-            startActivity(indCoinIntent)
-        }
-
-        coinViewModel =
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-                .create(CoinViewModel::class.java)
-
-        coinViewModel.getAllCoins().observe(viewLifecycleOwner, Observer {
-            arrayAdapter.replace(it as ArrayList<Coin>)
-            arrayAdapter.notifyDataSetChanged()
-        })
 
         return root
     }
