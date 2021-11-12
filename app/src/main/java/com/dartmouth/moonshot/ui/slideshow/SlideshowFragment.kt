@@ -117,16 +117,28 @@ class SlideshowFragment : Fragment() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
                 .create(CoinViewModel::class.java)
 
-        coinViewModel.getAllCoins().observe(viewLifecycleOwner, Observer { allCoinsList ->
-            coinsBy24hChange = ArrayList(allCoinsList.sortedWith(compareBy({it.priceChangePercent24})))
-            coinsByPubInterest = ArrayList(allCoinsList.sortedWith(compareBy({it.public_interest})))
-            coinsByCurrentPrice = ArrayList(allCoinsList.sortedWith(compareBy({it.currentPrice})))
-            arrayList = allCoinsList as ArrayList<Coin>
-            //arrayAdapter.replace(allCoinsList)
-            arrayAdapter.notifyDataSetChanged()
-        })
+
+        /*arrayList = coinViewModel.getAllCoins().value as ArrayList<Coin>
+        coinsBy24hChange = ArrayList(arrayList.sortedWith(compareByDescending({it.priceChangePercent24})))
+        coinsByPubInterest = ArrayList(arrayList.sortedWith(compareByDescending({it.public_interest})))
+        coinsByCurrentPrice = ArrayList(arrayList.sortedWith(compareByDescending({it.currentPrice})))
         arrayAdapter.replace(arrayList)
-        arrayAdapter.notifyDataSetChanged()
+        arrayAdapter.notifyDataSetChanged()*/
+
+        var t = 0
+        coinViewModel.allCoins.observe(viewLifecycleOwner, Observer { allCoinsList ->
+            coinsBy24hChange = ArrayList(allCoinsList.sortedWith(compareByDescending({it.priceChangePercent24})))
+            coinsByPubInterest = ArrayList(allCoinsList.sortedWith(compareByDescending({it.public_interest})))
+            coinsByCurrentPrice = ArrayList(allCoinsList.sortedWith(compareByDescending({it.currentPrice})))
+            arrayList = allCoinsList as ArrayList<Coin>
+            if(t == 0){
+                arrayAdapter.replace(allCoinsList)
+                arrayAdapter.notifyDataSetChanged()
+                t = 1
+            }
+            //arrayAdapter.replace(allCoinsList)
+            //arrayAdapter.notifyDataSetChanged()
+        })
 
         //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         radgrp.setOnCheckedChangeListener { radioGroup, optionId ->

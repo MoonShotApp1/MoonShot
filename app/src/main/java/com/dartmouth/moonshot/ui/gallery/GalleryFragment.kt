@@ -59,6 +59,7 @@ class GalleryFragment : Fragment() {
             savedCoinsList = fromString(userModel.savedCoins)
             //Toast.makeText(this.activity, savedCoinsList.toString(), Toast.LENGTH_LONG).show()
             var cList = coinViewModel.getSavedCoins(savedCoinsList).value
+            //Toast.makeText(this.activity, cList?.size.toString(), Toast.LENGTH_LONG).show()
             //println(cList.toString())
             if(cList != null){
                 //Toast.makeText(this.activity, cList.size.toString(), Toast.LENGTH_LONG).show()
