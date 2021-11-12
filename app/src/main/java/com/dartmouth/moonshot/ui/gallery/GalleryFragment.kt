@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dartmouth.moonshot.*
@@ -54,6 +55,20 @@ class GalleryFragment : Fragment() {
         arrayAdapter = CoinListAdapter(requireActivity(), arrayList)
         coinListView.layoutManager = LinearLayoutManager(requireContext())
         coinListView.adapter = arrayAdapter
+
+        val swipingGesture = object : SwipingGesture(requireContext()){
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                when(direction){
+                    ItemTouchHelper.LEFT -> {
+                        arrayAdapter.deleteItem(viewHolder.adapterPosition)
+                        //add delete from database here
+                    }
+                }
+            }
+        }
+
+        val touchHelper = ItemTouchHelper(swipingGesture)
+        touchHelper.attachToRecyclerView(coinListView)
 
 
         profileViewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->
