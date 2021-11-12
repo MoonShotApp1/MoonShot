@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dartmouth.moonshot.*
 import com.dartmouth.moonshot.databinding.FragmentGalleryBinding
 import com.google.gson.Gson
@@ -21,7 +23,7 @@ class GalleryFragment : Fragment() {
 
     private lateinit var galleryViewModel: GalleryViewModel
 
-    private lateinit var coinListView: ListView
+    private lateinit var coinListView: RecyclerView
     private lateinit var arrayList: ArrayList<Coin>
     private lateinit var arrayAdapter: CoinListAdapter
 
@@ -53,6 +55,7 @@ class GalleryFragment : Fragment() {
 
         arrayList = ArrayList()
         arrayAdapter = CoinListAdapter(requireActivity(), arrayList)
+        coinListView.layoutManager = LinearLayoutManager(requireContext())
         coinListView.adapter = arrayAdapter
 
         profileViewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->

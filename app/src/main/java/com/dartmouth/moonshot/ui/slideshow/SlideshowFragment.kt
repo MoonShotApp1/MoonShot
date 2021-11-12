@@ -40,7 +40,7 @@ class SlideshowFragment : Fragment() {
 
     private lateinit var coinListView: ListView
     private lateinit var arrayList: ArrayList<Coin>
-    private lateinit var arrayAdapter: CoinListAdapter
+    private lateinit var arrayAdapter: CoinListAdapterRec
     private lateinit var coinsByPubInterest: ArrayList<Coin>
     private lateinit var coinsBy24hChange: ArrayList<Coin>
     private lateinit var coinsByCurrentPrice: ArrayList<Coin>
@@ -76,17 +76,17 @@ class SlideshowFragment : Fragment() {
         bnb = root.findViewById(R.id.bnb)
         other1 = root.findViewById(R.id.other1)
 
-        name = root.findViewById(R.id.name)
+        /*name = root.findViewById(R.id.name)
         price = root.findViewById(R.id.price)
         tfhp = root.findViewById(R.id.tfhp)
-        mrktCap = root.findViewById(R.id.mrktCap)
+        mrktCap = root.findViewById(R.id.mrktCap)*/
 
         coinListView = binding.listv
 
         //------------------------------------------------------------------------------------
 
         arrayList = ArrayList()
-        arrayAdapter = CoinListAdapter(requireActivity(), arrayList)
+        arrayAdapter = CoinListAdapterRec(requireActivity(), arrayList)
         coinListView.adapter = arrayAdapter
 
         coinListView.setOnItemClickListener() { parent: AdapterView<*>, view: View, position: Int, id: Long ->

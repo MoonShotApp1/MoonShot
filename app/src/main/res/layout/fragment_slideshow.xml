@@ -122,7 +122,7 @@
     </LinearLayout>
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   <!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -162,7 +162,7 @@
             android:layout_weight="1"
             android:text="Mrkt Cap"
             android:textSize="20sp" />
-    </LinearLayout>
+    </LinearLayout>-->
 
     <ListView
         android:textColor="#FFFFFF"
