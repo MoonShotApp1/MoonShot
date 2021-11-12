@@ -1,12 +1,14 @@
 package com.dartmouth.moonshot
 
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
@@ -26,7 +28,10 @@ class CoinListAdapter(val context: Activity, var coinList: ArrayList<Coin>): Rec
             textViewBCType = view.findViewById(R.id.tv_blockchaintype)
             textViewCurrPrice = view.findViewById(R.id.tv_currentprice)
             iconPic = view.findViewById(R.id.iconPic)
+
+
         }
+
     }
     /*override fun getCount(): Int {
         return coinList.size
@@ -73,6 +78,29 @@ class CoinListAdapter(val context: Activity, var coinList: ArrayList<Coin>): Rec
         holder.textViewBCType.text = "PLATFORM: " + coinList.get(position).platforms
         holder.textViewCurrPrice.text = "PRICE $" + coinList.get(position).currentPrice.toString()
         Picasso.get().load(coinList.get(position).image_large).into(holder.iconPic)
+        holder.itemView.setOnClickListener{
+            val itemSelected: Coin = coinList.get(position) as Coin
+
+            val indCoinIntent = Intent(context, IndividualCoinActivity::class.java)
+
+            indCoinIntent.putExtra(IndividualCoinActivity.NAME_KEY, itemSelected.name)
+            indCoinIntent.putExtra(IndividualCoinActivity.SYMBOL_KEY, itemSelected.symbol)
+            indCoinIntent.putExtra(IndividualCoinActivity.BLOCKCHAIN_TYPE_KEY, itemSelected.platforms)
+            indCoinIntent.putExtra(IndividualCoinActivity.CURRENT_PRICE_KEY, itemSelected.currentPrice.toString())
+            indCoinIntent.putExtra(IndividualCoinActivity.ADDRESS_KEY, itemSelected.address)
+            indCoinIntent.putExtra(IndividualCoinActivity.IMAGE_LARGE_KEY, itemSelected.image_large)
+            indCoinIntent.putExtra(IndividualCoinActivity.ID_KEY, itemSelected.id)
+            indCoinIntent.putExtra(IndividualCoinActivity.HOMEPAGE_KEY, itemSelected.links_homepage)
+            indCoinIntent.putExtra(IndividualCoinActivity.ANNOUNCEMENT_KEY, itemSelected.links_announcement_url)
+            indCoinIntent.putExtra(IndividualCoinActivity.CHAT_KEY, itemSelected.links_chat_url)
+            indCoinIntent.putExtra(IndividualCoinActivity.FACEBOOK_KEY, itemSelected.links_facebook_username)
+            indCoinIntent.putExtra(IndividualCoinActivity.FORUM_KEY, itemSelected.links_official_forum_url)
+            indCoinIntent.putExtra(IndividualCoinActivity.TWITTER_KEY, itemSelected.links_twitter_screen_name)
+            //Toast.makeText(this.activity, itemSelected.name, Toast.LENGTH_LONG).show()
+            //Toast.makeText(this.activity, itemSelected.image_large.toString(), Toast.LENGTH_LONG).show()
+
+            context.startActivity(indCoinIntent)
+        }
     }
 
     override fun getItemCount(): Int {
