@@ -18,7 +18,7 @@ class CoinViewModel: ViewModel() {
     }*/
 
     fun getSavedCoins(coinIDList: ArrayList<String>): LiveData<ArrayList<Coin>> {
-        return coinRepo.getSavedCoins(coinIDList)
+        return coinRepo.getSavedCoins(coinIDList)//.asLiveData(CoroutineScope(Dispatchers.IO).coroutineContext)
     }
 
 }
