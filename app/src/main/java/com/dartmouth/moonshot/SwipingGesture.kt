@@ -15,7 +15,7 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 abstract class SwipingGesture(context: Context): ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
 
     val delCol = ContextCompat.getColor(context, R.color.delcolor)
-    val delIcon = R.drawable.rocket_emoji
+    val delIcon = R.drawable.my_trash_icon_two
 
     override fun onMove(
         recyclerView: RecyclerView,
