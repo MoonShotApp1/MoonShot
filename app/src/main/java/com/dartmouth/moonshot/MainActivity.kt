@@ -1,9 +1,11 @@
 package com.dartmouth.moonshot
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import androidx.annotation.DrawableRes
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -19,6 +21,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import android.content.res.ColorStateList
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +45,32 @@ class MainActivity : AppCompatActivity() {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
+        navView.setItemIconTintList(null)
+        navView.setBackgroundResource(R.drawable.img_2)
+
+
+        val state = arrayOf(
+            intArrayOf(-android.R.attr.state_enabled),
+            intArrayOf(android.R.attr.state_enabled),
+            intArrayOf(-android.R.attr.state_checked),
+            intArrayOf(android.R.attr.state_pressed)
+        )
+
+        val color = intArrayOf(
+            Color.WHITE,
+            Color.WHITE,
+            Color.WHITE,
+            Color.WHITE
+        )
+
+        val colorStateList1 = ColorStateList(state, color)
+        navView.setItemTextColor(colorStateList1)
+
+
+
+        //navView.itemTextColor =
+        //navView.setBackgroundColor(Color.CYAN)
+        //drawerLayout.setBackgroundColor(Color.CYAN)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

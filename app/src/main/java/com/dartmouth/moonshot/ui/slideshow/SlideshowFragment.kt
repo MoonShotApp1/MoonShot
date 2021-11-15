@@ -14,6 +14,8 @@ import com.dartmouth.moonshot.*
 import com.dartmouth.moonshot.databinding.FragmentSlideshowBinding
 
 class SlideshowFragment : Fragment() {
+
+
     lateinit var radgrp: RadioGroup
     lateinit var all: Button
     lateinit var eth: Button
@@ -32,7 +34,7 @@ class SlideshowFragment : Fragment() {
 
     private lateinit var coinListView: ListView
     private lateinit var arrayList: ArrayList<Coin>
-    private lateinit var arrayAdapter: CoinListAdapter
+    private lateinit var arrayAdapter: CoinListAdapterRec
     private lateinit var coinsByPubInterest: ArrayList<Coin>
     private lateinit var coinsBy24hChange: ArrayList<Coin>
     private lateinit var coinsByCurrentPrice: ArrayList<Coin>
@@ -55,18 +57,24 @@ class SlideshowFragment : Fragment() {
         val root: View = binding.root
 
         //------------------------------------------------------------------------------------
+
         radgrp = root.findViewById(R.id.radgrp)
         all = root.findViewById(R.id.all)
         eth = root.findViewById(R.id.eth)
         bnb = root.findViewById(R.id.bnb)
         other1 = root.findViewById(R.id.other1)
 
+        /*name = root.findViewById(R.id.name)
+        price = root.findViewById(R.id.price)
+        tfhp = root.findViewById(R.id.tfhp)
+        mrktCap = root.findViewById(R.id.mrktCap)*/
+
         coinListView = binding.listv
 
         //------------------------------------------------------------------------------------
 
         arrayList = ArrayList()
-        arrayAdapter = CoinListAdapter(requireActivity(), arrayList)
+        arrayAdapter = CoinListAdapterRec(requireActivity(), arrayList)
         coinListView.adapter = arrayAdapter
 
         coinListView.setOnItemClickListener() { parent: AdapterView<*>, view: View, position: Int, id: Long ->
@@ -87,6 +95,11 @@ class SlideshowFragment : Fragment() {
             indCoinIntent.putExtra(IndividualCoinActivity.FACEBOOK_KEY, itemSelected.links_facebook_username)
             indCoinIntent.putExtra(IndividualCoinActivity.FORUM_KEY, itemSelected.links_official_forum_url)
             indCoinIntent.putExtra(IndividualCoinActivity.TWITTER_KEY, itemSelected.links_twitter_screen_name)
+            indCoinIntent.putExtra(IndividualCoinActivity.PRICE_24_KEY, itemSelected.priceChangePercent24.toString())
+            indCoinIntent.putExtra(IndividualCoinActivity.PUBLIC_INT_KEY, itemSelected.public_interest.toString())
+            indCoinIntent.putExtra(IndividualCoinActivity.PRICE_30d_KEY, itemSelected.priceChangePercent30d.toString())
+            indCoinIntent.putExtra(IndividualCoinActivity.MARK_RANK_KEY, itemSelected.marketCapRank?.toInt().toString())
+            indCoinIntent.putExtra(IndividualCoinActivity.MARK_KEY, itemSelected.marketCap.toString())
             //Toast.makeText(this.activity, itemSelected.name, Toast.LENGTH_LONG).show()
             //Toast.makeText(this.activity, itemSelected.image_large.toString(), Toast.LENGTH_LONG).show()
 
@@ -97,16 +110,28 @@ class SlideshowFragment : Fragment() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
                 .create(CoinViewModel::class.java)
 
-        coinViewModel.getAllCoins().observe(viewLifecycleOwner, Observer { allCoinsList ->
-            coinsBy24hChange = ArrayList(allCoinsList.sortedWith(compareBy({it.priceChangePercent24})))
-            coinsByPubInterest = ArrayList(allCoinsList.sortedWith(compareBy({it.public_interest})))
-            coinsByCurrentPrice = ArrayList(allCoinsList.sortedWith(compareBy({it.currentPrice})))
-            arrayList = allCoinsList as ArrayList<Coin>
-            //arrayAdapter.replace(allCoinsList)
-            arrayAdapter.notifyDataSetChanged()
-        })
+
+        /*arrayList = coinViewModel.getAllCoins().value as ArrayList<Coin>
+        coinsBy24hChange = ArrayList(arrayList.sortedWith(compareByDescending({it.priceChangePercent24})))
+        coinsByPubInterest = ArrayList(arrayList.sortedWith(compareByDescending({it.public_interest})))
+        coinsByCurrentPrice = ArrayList(arrayList.sortedWith(compareByDescending({it.currentPrice})))
         arrayAdapter.replace(arrayList)
-        arrayAdapter.notifyDataSetChanged()
+        arrayAdapter.notifyDataSetChanged()*/
+
+        var t = 0
+        coinViewModel.allCoins.observe(viewLifecycleOwner, Observer { allCoinsList ->
+            coinsBy24hChange = ArrayList(allCoinsList.sortedWith(compareByDescending({it.priceChangePercent24})))
+            coinsByPubInterest = ArrayList(allCoinsList.sortedWith(compareByDescending({it.public_interest})))
+            coinsByCurrentPrice = ArrayList(allCoinsList.sortedWith(compareByDescending({it.currentPrice})))
+            arrayList = allCoinsList as ArrayList<Coin>
+            if(t == 0){
+                arrayAdapter.replace(allCoinsList)
+                arrayAdapter.notifyDataSetChanged()
+                t = 1
+            }
+            //arrayAdapter.replace(allCoinsList)
+            //arrayAdapter.notifyDataSetChanged()
+        })
 
         //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         radgrp.setOnCheckedChangeListener { radioGroup, optionId ->

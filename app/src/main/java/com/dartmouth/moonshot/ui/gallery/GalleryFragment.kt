@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dartmouth.moonshot.*
 import com.dartmouth.moonshot.databinding.FragmentGalleryBinding
 import com.google.gson.Gson
@@ -21,13 +21,16 @@ class GalleryFragment : Fragment() {
 
     private lateinit var galleryViewModel: GalleryViewModel
 
-    private lateinit var coinListView: ListView
+    private lateinit var coinListView: RecyclerView
     private lateinit var arrayList: ArrayList<Coin>
     private lateinit var arrayAdapter: CoinListAdapter
 
     private lateinit var coinViewModel: CoinViewModel
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var savedCoinsList: ArrayList<String>
+
+    private var cList: ArrayList<Coin>? = null
+    private lateinit var cIDs : ArrayList<String>
 
 
     // This property is only valid between onCreateView and
@@ -53,13 +56,40 @@ class GalleryFragment : Fragment() {
 
         arrayList = ArrayList()
         arrayAdapter = CoinListAdapter(requireActivity(), arrayList)
+        coinListView.layoutManager = LinearLayoutManager(requireContext())
         coinListView.adapter = arrayAdapter
+
+        val swipingGesture = object : SwipingGesture(requireContext()){
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                when(direction){
+                    ItemTouchHelper.LEFT -> {
+                        //add delete from database here
+                        cIDs = ArrayList<String>()
+                        for(coind in 0..cList!!.size-1){
+                            if(coind != viewHolder.adapterPosition){
+                                cList!!.get(coind).id?.let { cIDs.add(it) }
+                            }
+                        }
+                        //profileViewModel.updateSavedCoins(cIDs)
+                        arrayAdapter.deleteItem(viewHolder.adapterPosition)
+                    }
+                }
+            }
+        }
+
+        val touchHelper = ItemTouchHelper(swipingGesture)
+        touchHelper.attachToRecyclerView(coinListView)
+
 
         profileViewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->
             savedCoinsList = fromString(userModel.savedCoins)
             //Toast.makeText(this.activity, savedCoinsList.toString(), Toast.LENGTH_LONG).show()
-            var cList = coinViewModel.getSavedCoins(savedCoinsList).value
+            cList = coinViewModel.getSavedCoins(savedCoinsList).value
+            //Toast.makeText(this.activity, cList?.size.toString(), Toast.LENGTH_LONG).show()
             //println(cList.toString())
+            /*while (cList == null){
+                cList = coinViewModel.getSavedCoins(savedCoinsList).value
+            }*/
             if(cList != null){
                 //Toast.makeText(this.activity, cList.size.toString(), Toast.LENGTH_LONG).show()
                 arrayAdapter.replace(cList as ArrayList<Coin>)
@@ -89,7 +119,7 @@ class GalleryFragment : Fragment() {
         profileViewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->
             savedCoinsList = fromString(userModel.savedCoins)
             //Toast.makeText(this.activity, savedCoinsList.toString(), Toast.LENGTH_LONG).show()
-            var cList = coinViewModel.getSavedCoins(savedCoinsList).value
+            cList = coinViewModel.getSavedCoins(savedCoinsList).value
             //println(cList.toString())
             if(cList != null){
                 //Toast.makeText(this.activity, cList.size.toString(), Toast.LENGTH_LONG).show()
@@ -97,6 +127,13 @@ class GalleryFragment : Fragment() {
                 arrayAdapter.notifyDataSetChanged()
             }
         })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if(this::cIDs.isInitialized){
+            profileViewModel.updateSavedCoins(cIDs)
+        }
     }
 
     override fun onDestroyView() {

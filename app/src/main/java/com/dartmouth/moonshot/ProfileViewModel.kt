@@ -3,9 +3,14 @@ package com.dartmouth.moonshot
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 class ProfileViewModel: ViewModel() {
     private var profileRepo = ProfileRepository.StaticFunction.getInstance()
+
+   // val user: LiveData<User> = profileRepo.getUser().asLiveData(CoroutineScope(Dispatchers.IO).coroutineContext)
 
     fun getUser(): LiveData<User> {
         return profileRepo.getUser()

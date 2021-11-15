@@ -13,4 +13,3 @@ Look no further. Introducing MoonShot, an app designed to locate promising crypt
 
 4) Profile and Sign in - Access your account, your personal details, and your saved coins from any smart device.
 
-skdlfjksaljflkasjflkas

@@ -98,6 +98,7 @@ class HomeFragment : Fragment() {
             binding.userModel = userModel
 
             edittextName.setText(userModel.name.toString())
+            edittextBio.setText(userModel.bio.toString())
 
         })
 
@@ -131,6 +132,13 @@ class HomeFragment : Fragment() {
         profileViewModel =
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
                 .create(ProfileViewModel::class.java)
+        profileViewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->
+            binding.userModel = userModel
+
+            edittextName.setText(userModel.name.toString())
+            edittextBio.setText(userModel.bio.toString())
+
+        })
         //mFirebaseAuth = FirebaseAuth.getInstance()
 
         // Get saved name
