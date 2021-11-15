@@ -64,6 +64,7 @@ class CoinListAdapter(val context: Activity, var coinList: ArrayList<Coin>): Rec
 
             val indCoinIntent = Intent(context, IndividualCoinActivity::class.java)
 
+            indCoinIntent.putExtra(IndividualCoinActivity.SHOW_SAVE_KEY, false)
             indCoinIntent.putExtra(IndividualCoinActivity.NAME_KEY, itemSelected.name)
             indCoinIntent.putExtra(IndividualCoinActivity.SYMBOL_KEY, itemSelected.symbol)
             indCoinIntent.putExtra(IndividualCoinActivity.BLOCKCHAIN_TYPE_KEY, itemSelected.platforms)

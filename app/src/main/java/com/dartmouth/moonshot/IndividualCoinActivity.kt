@@ -44,6 +44,8 @@ class IndividualCoinActivity: AppCompatActivity() {
     private var forum: String? = null
     private var twitter: String? = null
 
+    private var savedCoinsList: ArrayList<String>? = null
+
     companion object coinSPKeys {
         val BUNDLE_KEY = "bundle"
         val ADDRESS_KEY = "address"
@@ -61,6 +63,7 @@ class IndividualCoinActivity: AppCompatActivity() {
         val FACEBOOK_KEY = "facebook"
         val FORUM_KEY = "forum"
         val TWITTER_KEY = "key"
+        val SHOW_SAVE_KEY = "showSave"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,14 +84,14 @@ class IndividualCoinActivity: AppCompatActivity() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
                 .create(ProfileViewModel::class.java)
 
-        var savedCoinsList = fromString(profileViewModel.getUser().value?.savedCoins)
+        savedCoinsList = fromString(profileViewModel.getUser().value?.savedCoins)
         //Toast.makeText(this, savedCoinsList.toString(), Toast.LENGTH_LONG).show()
 
         saveButton = findViewById(R.id.button_save)
         saveButton.setOnClickListener(){
             if (savedCoinsList != null) {
-                coinID?.let { it1 -> savedCoinsList.add(it1) }
-                profileViewModel.updateSavedCoins(savedCoinsList)
+                coinID?.let { it1 -> savedCoinsList!!.add(it1) }
+                profileViewModel.updateSavedCoins(savedCoinsList!!)
             }
             finish()
         }
@@ -124,6 +127,7 @@ class IndividualCoinActivity: AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        savedCoinsList = fromString(profileViewModel.getUser().value?.savedCoins)
         // Get coin info from intent
         //val bundle = intent.getBundleExtra(BUNDLE_KEY)
         address = intent.getStringExtra(ADDRESS_KEY)
@@ -151,6 +155,15 @@ class IndividualCoinActivity: AppCompatActivity() {
         } else {
             coinHomepageButton.isVisible = false
         }
+
+        val showSaveKey = intent.getBooleanExtra(SHOW_SAVE_KEY, true)
+        /*if(!showSaveKey){
+            saveButton.isVisible = false
+        }*/
+        if(savedCoinsList!!.contains(symbol)){
+            saveButton.isVisible = false
+        }
+
     }
 
     fun showSocials(){
