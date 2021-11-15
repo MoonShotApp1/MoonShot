@@ -21,6 +21,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import android.content.res.ColorStateList
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,6 +47,27 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = binding.navView
         navView.setItemIconTintList(null)
         navView.setBackgroundResource(R.drawable.img_2)
+
+
+        val state = arrayOf(
+            intArrayOf(-android.R.attr.state_enabled),
+            intArrayOf(android.R.attr.state_enabled),
+            intArrayOf(-android.R.attr.state_checked),
+            intArrayOf(android.R.attr.state_pressed)
+        )
+
+        val color = intArrayOf(
+            Color.WHITE,
+            Color.WHITE,
+            Color.WHITE,
+            Color.WHITE
+        )
+
+        val colorStateList1 = ColorStateList(state, color)
+        navView.setItemTextColor(colorStateList1)
+
+
+
         //navView.itemTextColor =
         //navView.setBackgroundColor(Color.CYAN)
         //drawerLayout.setBackgroundColor(Color.CYAN)
