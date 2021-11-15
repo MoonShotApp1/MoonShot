@@ -1,9 +1,11 @@
 package com.dartmouth.moonshot
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import androidx.annotation.DrawableRes
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -39,6 +41,11 @@ class MainActivity : AppCompatActivity() {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
+        navView.setItemIconTintList(null)
+        navView.setBackgroundResource(R.drawable.img_2)
+        //navView.itemTextColor =
+        //navView.setBackgroundColor(Color.CYAN)
+        //drawerLayout.setBackgroundColor(Color.CYAN)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

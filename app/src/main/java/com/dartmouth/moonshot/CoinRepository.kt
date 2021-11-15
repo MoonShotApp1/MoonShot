@@ -74,6 +74,7 @@ class CoinRepository {
         coinsList
     }
 
+    //IF WE WANT TO USE A COROUTINE FOR THIS IN THE VIEWMODEL USE THIS INSTEAD
     /*fun getSavedCoins(coinIDs: ArrayList<String>): Flow<ArrayList<Coin>> = Firebase.database.getReference("Coins").observeValue().map {
         var savedCoinsList = ArrayList<Coin>()
         if (it != null) {

@@ -53,6 +53,8 @@ class SignUpActivity: AppCompatActivity() {
                         ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)
                             .create(ProfileViewModel::class.java)
                     profileViewModel.updateName("")
+                    profileViewModel.updateBio("")
+                    profileViewModel.updateImage(Uri.parse("android.resource://com.dartmouth.moonshot/${R.drawable.default_profile}"), 1)
                     finish()
                 } else {
                     // Sign up failed

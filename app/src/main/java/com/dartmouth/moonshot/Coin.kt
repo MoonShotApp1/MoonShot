@@ -39,6 +39,8 @@ data class Coin(
     var priceChangePercent24: Double? = null,
     @get:PropertyName("market_data-price_change_percentage_30d") @set:PropertyName("market_data-price_change_percentage_30d")
     var priceChangePercent30d: Double? = null,
+    @get:PropertyName("market_data-market_cap_rank") @set:PropertyName("market_data-market_cap_rank")
+    var marketCapRank: Double? = null
     //var totalTransactions: String? = null,
     //var price24Low: String? = null,
     //var price24High: String? = null,

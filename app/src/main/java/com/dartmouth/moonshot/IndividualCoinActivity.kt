@@ -63,6 +63,11 @@ class IndividualCoinActivity: AppCompatActivity() {
         val FACEBOOK_KEY = "facebook"
         val FORUM_KEY = "forum"
         val TWITTER_KEY = "key"
+        val PRICE_24_KEY = "price_24"
+        val PRICE_30d_KEY = "price_30d"
+        val PUBLIC_INT_KEY = "pubint"
+        val MARK_RANK_KEY = "markrankkey"
+        val MARK_KEY = "markkey"
         val SHOW_SAVE_KEY = "showSave"
     }
 
@@ -116,11 +121,23 @@ class IndividualCoinActivity: AppCompatActivity() {
         val bcTypeTextView: TextView = findViewById(R.id.blockChainTypeAB)
         val currPriceTextView: TextView = findViewById(R.id.price)
         val imageLargeImageView: ImageView = findViewById(R.id.coinPic)
+        val addressTextView: TextView = findViewById(R.id.addressB)
+        val price24TextView: TextView = findViewById(R.id.priceChangeB)
+        val pubintTextView: TextView = findViewById(R.id.dailVB)
+        val price30dTextView: TextView = findViewById(R.id.totalTransB)
+        val marketCapRankTextView: TextView = findViewById(R.id.priceHighB)
+        val marketCapTextView: TextView = findViewById(R.id.priceLowB)
 
         nameTextView.text = intent.getStringExtra(NAME_KEY)
         symbolTextView.text = intent.getStringExtra(SYMBOL_KEY)
         bcTypeTextView.text = intent.getStringExtra(BLOCKCHAIN_TYPE_KEY)
-        currPriceTextView.text = intent.getStringExtra(CURRENT_PRICE_KEY)
+        currPriceTextView.text = "$" + intent.getStringExtra(CURRENT_PRICE_KEY)
+        addressTextView.text = intent.getStringExtra(ADDRESS_KEY)
+        price24TextView.text = intent.getStringExtra(PRICE_24_KEY) + "%"
+        pubintTextView.text = intent.getStringExtra(PUBLIC_INT_KEY) + "%"
+        price30dTextView.text = intent.getStringExtra(PRICE_30d_KEY) + "%"
+        marketCapRankTextView.text =  intent.getStringExtra(MARK_RANK_KEY)
+        marketCapTextView.text =  "$" + intent.getStringExtra(MARK_KEY)
         Picasso.get().load(imageLarge).into(imageLargeImageView)
     }
 
@@ -133,6 +150,7 @@ class IndividualCoinActivity: AppCompatActivity() {
         address = intent.getStringExtra(ADDRESS_KEY)
         blockchainType = intent.getStringExtra(BLOCKCHAIN_TYPE_KEY)
         currentPrice = intent.getStringExtra(CURRENT_PRICE_KEY)
+        coinID = intent.getStringExtra(ID_KEY)
         //dailyVolume = intent.getStringExtra(DAILY_VOLUME_KEY)
         //holders = intent.getStringExtra(HOLDERS_KEY)
         name = intent.getStringExtra(NAME_KEY)
@@ -157,10 +175,7 @@ class IndividualCoinActivity: AppCompatActivity() {
         }
 
         val showSaveKey = intent.getBooleanExtra(SHOW_SAVE_KEY, true)
-        /*if(!showSaveKey){
-            saveButton.isVisible = false
-        }*/
-        if(savedCoinsList!!.contains(symbol)){
+        if(savedCoinsList!!.contains(coinID) || !showSaveKey ){
             saveButton.isVisible = false
         }
 

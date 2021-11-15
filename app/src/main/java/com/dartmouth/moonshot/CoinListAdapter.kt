@@ -78,6 +78,11 @@ class CoinListAdapter(val context: Activity, var coinList: ArrayList<Coin>): Rec
             indCoinIntent.putExtra(IndividualCoinActivity.FACEBOOK_KEY, itemSelected.links_facebook_username)
             indCoinIntent.putExtra(IndividualCoinActivity.FORUM_KEY, itemSelected.links_official_forum_url)
             indCoinIntent.putExtra(IndividualCoinActivity.TWITTER_KEY, itemSelected.links_twitter_screen_name)
+            indCoinIntent.putExtra(IndividualCoinActivity.PRICE_24_KEY, itemSelected.priceChangePercent24.toString())
+            indCoinIntent.putExtra(IndividualCoinActivity.PUBLIC_INT_KEY, itemSelected.public_interest.toString())
+            indCoinIntent.putExtra(IndividualCoinActivity.PRICE_30d_KEY, itemSelected.priceChangePercent30d.toString())
+            indCoinIntent.putExtra(IndividualCoinActivity.MARK_RANK_KEY, itemSelected.marketCapRank?.toInt().toString())
+            indCoinIntent.putExtra(IndividualCoinActivity.MARK_KEY, itemSelected.marketCap.toString())
             //Toast.makeText(this.activity, itemSelected.name, Toast.LENGTH_LONG).show()
             //Toast.makeText(this.activity, itemSelected.image_large.toString(), Toast.LENGTH_LONG).show()
 

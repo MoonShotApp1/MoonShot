@@ -30,6 +30,7 @@ class GalleryFragment : Fragment() {
     private lateinit var savedCoinsList: ArrayList<String>
 
     private var cList: ArrayList<Coin>? = null
+    private lateinit var cIDs : ArrayList<String>
 
 
     // This property is only valid between onCreateView and
@@ -63,7 +64,7 @@ class GalleryFragment : Fragment() {
                 when(direction){
                     ItemTouchHelper.LEFT -> {
                         //add delete from database here
-                        var cIDs = ArrayList<String>()
+                        cIDs = ArrayList<String>()
                         for(coind in 0..cList!!.size-1){
                             if(coind != viewHolder.adapterPosition){
                                 cList!!.get(coind).id?.let { cIDs.add(it) }
@@ -83,9 +84,12 @@ class GalleryFragment : Fragment() {
         profileViewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->
             savedCoinsList = fromString(userModel.savedCoins)
             //Toast.makeText(this.activity, savedCoinsList.toString(), Toast.LENGTH_LONG).show()
-            var cList = coinViewModel.getSavedCoins(savedCoinsList).value
+            cList = coinViewModel.getSavedCoins(savedCoinsList).value
             //Toast.makeText(this.activity, cList?.size.toString(), Toast.LENGTH_LONG).show()
             //println(cList.toString())
+            /*while (cList == null){
+                cList = coinViewModel.getSavedCoins(savedCoinsList).value
+            }*/
             if(cList != null){
                 //Toast.makeText(this.activity, cList.size.toString(), Toast.LENGTH_LONG).show()
                 arrayAdapter.replace(cList as ArrayList<Coin>)
@@ -123,6 +127,13 @@ class GalleryFragment : Fragment() {
                 arrayAdapter.notifyDataSetChanged()
             }
         })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if(this::cIDs.isInitialized){
+            profileViewModel.updateSavedCoins(cIDs)
+        }
     }
 
     override fun onDestroyView() {
