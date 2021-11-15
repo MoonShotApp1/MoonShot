@@ -14,14 +14,6 @@ import com.dartmouth.moonshot.*
 import com.dartmouth.moonshot.databinding.FragmentSlideshowBinding
 
 class SlideshowFragment : Fragment() {
-
-    lateinit var cryptosA: TextView
-    lateinit var cryptosB: TextView
-    lateinit var exchangesA: TextView
-    lateinit var exchangesB: TextView
-    lateinit var marketCapA: TextView
-    lateinit var marketCapB: TextView
-
     lateinit var radgrp: RadioGroup
     lateinit var all: Button
     lateinit var eth: Button
@@ -63,13 +55,6 @@ class SlideshowFragment : Fragment() {
         val root: View = binding.root
 
         //------------------------------------------------------------------------------------
-        cryptosA = root.findViewById(R.id.cryptosA)
-        cryptosB = root.findViewById(R.id.cryptosB)
-        exchangesA = root.findViewById(R.id.exchangesA)
-        exchangesB = root.findViewById(R.id.exchangesB)
-        marketCapA = root.findViewById(R.id.marketCapA)
-        marketCapB = root.findViewById(R.id.marketCapB)
-
         radgrp = root.findViewById(R.id.radgrp)
         all = root.findViewById(R.id.all)
         eth = root.findViewById(R.id.eth)
