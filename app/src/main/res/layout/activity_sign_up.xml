@@ -1,35 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/download"
     android:orientation="vertical">
 
-    <EditText
-        android:textColor="#FFFFFF"
-        android:id="@+id/edittext_email"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress">
+        android:orientation="vertical"
+        android:layout_centerVertical="true">
 
-        <requestFocus />
-    </EditText>
+        <EditText
+            android:id="@+id/edittext_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#77ffffff"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColor="#FFFFFF"
+            android:padding="10dp">
 
-    <EditText
-        android:textColor="#FFFFFF"
-        android:id="@+id/edittext_password"
+            <requestFocus />
+        </EditText>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/edittext_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#77ffffff"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="#FFFFFF"
+            android:padding="10dp"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
 
-    <Button
-        android:id="@+id/button_signup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign Up" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/button_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Up" />
+
+    </LinearLayout>
+
+</RelativeLayout>
