@@ -121,15 +121,20 @@ class ProfileRepository {
             val databaseReference =
                 Firebase.database.getReference("Users").child(mFirebaseAuth!!.currentUser!!.uid)
 
-            val map = mapOf<String, Any>("image" to imagePath.toString())
-            databaseReference.updateChildren(map)
 
             storageReference.putFile(imagePath).addOnSuccessListener {
                 //Toast.makeText(this.activity, "profile image uploaded", Toast.LENGTH_SHORT).show()
                 println("IMAGE UPLOADED")
+                storageReference.downloadUrl.addOnSuccessListener {
+                    val map = mapOf<String, Any>("image" to it.toString())
+                    databaseReference.updateChildren(map)
+                }.addOnFailureListener{
+
+                }
             }.addOnFailureListener{
                 //Toast.makeText(this.activity, "failed profile image upload", Toast.LENGTH_SHORT).show()
             }
+
         }
     }
 
