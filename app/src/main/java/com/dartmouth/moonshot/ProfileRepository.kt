@@ -106,16 +106,6 @@ class ProfileRepository {
 
     }
 
-    /*fun updateStatus(status: String) {
-
-        val databaseReference =
-            Firebase.database.getReference("Users").child(mFirebaseAuth!!.currentUser!!.uid)
-
-        val map = mapOf<String, Any>("status" to status)
-        databaseReference.updateChildren(map)
-
-    }*/
-
     fun updateImage(imagePath: Uri, changeImage: Int) {
         if (changeImage == 1){
             val databaseReference =

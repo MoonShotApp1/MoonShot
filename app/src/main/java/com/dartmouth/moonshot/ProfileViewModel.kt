@@ -16,11 +16,6 @@ class ProfileViewModel: ViewModel() {
         return profileRepo.getUser()
     }
 
-    /*fun updateStatus(status: String) {
-        profileRepo.updateStatus(status)
-
-    }*/
-
     fun updateName(userName: String?) {
         profileRepo.updateName(userName!!)
     }
