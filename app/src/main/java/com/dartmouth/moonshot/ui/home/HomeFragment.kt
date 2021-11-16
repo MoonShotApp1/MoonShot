@@ -46,6 +46,7 @@ class HomeFragment : Fragment() {
     private val tempImgFileName = "uttam_temp_img.jpg"
     lateinit var tempImgFile: File
     var changeImage = 0
+    var opDiag = 0
 
 
     private lateinit var profileViewModel: ProfileViewModel
@@ -91,6 +92,7 @@ class HomeFragment : Fragment() {
 
         pImageView = binding.imgProfile
         pImageView.setOnClickListener{
+            opDiag = 1
             onAlertDialogue()
         }
 
@@ -111,6 +113,7 @@ class HomeFragment : Fragment() {
 
         buttonSignOut = root.findViewById(R.id.button_signout)
         buttonSignOut.setOnClickListener(){
+                opDiag = 0
                 signOutUser()
             }
 
@@ -129,16 +132,20 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        profileViewModel =
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-                .create(ProfileViewModel::class.java)
-        profileViewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->
-            binding.userModel = userModel
+        if(opDiag != 1) {
 
-            edittextName.setText(userModel.name.toString())
-            edittextBio.setText(userModel.bio.toString())
 
-        })
+            profileViewModel =
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+                    .create(ProfileViewModel::class.java)
+            profileViewModel.getUser().observe(viewLifecycleOwner, Observer { userModel ->
+                binding.userModel = userModel
+
+                edittextName.setText(userModel.name.toString())
+                edittextBio.setText(userModel.bio.toString())
+
+            })
+        }
         //mFirebaseAuth = FirebaseAuth.getInstance()
 
         // Get saved name
@@ -183,6 +190,7 @@ class HomeFragment : Fragment() {
         //Toast.makeText(this.activity, result.data?.data.toString(), Toast.LENGTH_SHORT).show()
         if(result.data?.data != null){
             pImageView.setImageBitmap(bitmap)
+            //opDiag = 0
             //need to do data.data bc result.data is an intent
             imageUri = result.data?.data as Uri
         }
@@ -202,6 +210,7 @@ class HomeFragment : Fragment() {
         changeImage = 1
         val bitmap = Util.getBitmap(requireContext(), tempImgUri)
         pImageView.setImageBitmap(bitmap)
+        //opDiag = 0
         imageUri = tempImgUri
     }
 
