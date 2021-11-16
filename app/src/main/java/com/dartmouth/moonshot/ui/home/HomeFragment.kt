@@ -133,7 +133,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if(opDiag != 1) {
-
+            //mFirebaseAuth = FirebaseAuth.getInstance()
 
             profileViewModel =
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
