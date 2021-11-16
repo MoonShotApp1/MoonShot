@@ -19,6 +19,8 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.map
 
+//sources used: https://github.com/adnan0786/ChatMeKotlin/blob/master/app/src/main/java/com/example/chatmekotlin/Repository/AppRepo.kt
+//https://prus-piotr.medium.com/use-kotlin-coroutines-for-firebase-real-time-database-streams-e28d6083709c
 
 class CoinRepository {
 
