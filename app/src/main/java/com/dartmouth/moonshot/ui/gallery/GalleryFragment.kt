@@ -85,13 +85,15 @@ class GalleryFragment : Fragment() {
             savedCoinsList = fromString(userModel.savedCoins)
             //Toast.makeText(this.activity, savedCoinsList.toString(), Toast.LENGTH_LONG).show()
             cList = coinViewModel.getSavedCoins(savedCoinsList).value
-            //Toast.makeText(this.activity, cList?.size.toString(), Toast.LENGTH_LONG).show()
-            //println(cList.toString())
-            /*while (cList == null){
-                cList = coinViewModel.getSavedCoins(savedCoinsList).value
-            }*/
-            if(cList != null){
-                //Toast.makeText(this.activity, cList.size.toString(), Toast.LENGTH_LONG).show()
+          
+            if(cList == null){
+                coinViewModel.getSavedCoins(savedCoinsList).observe(viewLifecycleOwner, Observer {
+                    cList = it
+                    arrayAdapter.replace(cList as ArrayList<Coin>)
+                    arrayAdapter.notifyDataSetChanged()
+                })
+            }else{
+                coinViewModel.getSavedCoins(savedCoinsList).removeObservers(this)
                 arrayAdapter.replace(cList as ArrayList<Coin>)
                 arrayAdapter.notifyDataSetChanged()
             }
