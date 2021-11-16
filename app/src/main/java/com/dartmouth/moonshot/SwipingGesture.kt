@@ -10,6 +10,8 @@ import androidx.core.content.ContextCompat
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
+//source: https://www.youtube.com/watch?v=xE8z8wiXz18
+
 
 
 abstract class SwipingGesture(context: Context): ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
